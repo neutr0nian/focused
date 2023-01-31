@@ -2,15 +2,12 @@ import {
   Box,
   Button,
   ButtonGroup,
-  Center,
-  Container,
   Divider,
   Flex,
   Heading,
   Spacer,
 } from "@chakra-ui/react";
 import React from "react";
-import Timer from "./Timer";
 
 const Navbar = () => {
   return (

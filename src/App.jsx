@@ -1,16 +1,8 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
 import "./App.css";
 
 import { Navbar, Timer, Tasks } from "./components";
-import {
-  Box,
-  Container,
-  Grid,
-  GridItem,
-  Heading,
-  SimpleGrid,
-} from "@chakra-ui/react";
+import { Box, Container, SimpleGrid } from "@chakra-ui/react";
 
 function App() {
   return (

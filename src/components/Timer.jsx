@@ -3,9 +3,9 @@ import {
   Button,
   ButtonGroup,
   Center,
-  Container,
   Flex,
   Heading,
+  Text,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import Tasks from "./Tasks";
@@ -39,9 +39,9 @@ const Timer = () => {
         </Center>
         <Box>
           <Center mb={5} mt={5}>
-            <Heading size="4xl" color="gray.800">
+            <Text fontSize="8xl" as="b" color="gray.700">
               {time}
-            </Heading>
+            </Text>
           </Center>
           <Center>
             <Button size="lg" bg="gray.300">
