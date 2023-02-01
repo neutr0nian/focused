@@ -1,6 +1,24 @@
 # Focused - A productive react application to focus while working
 
-In Progres application, stay tuned for the completion.
+Focused is an application highly inspired by Pomodoro technique to be productive. The application lets you add your daily tasks and complete them by starting the timer. It also has an option to play music to help you work efficiently.
+
+The application is still in development and is open to public to contribute.
+
+## Current features
+
+1. Add, Edit, Delete Task
+2. Start, Stop Timer
+3. Load Playlists
+4. Load Tracks and Play Music
+
+![Home](screenshots/home.png)
+![Music](screenshots/music.png)
+
+## Upcoming features
+
+1. Edit timer
+2. Dark Mode
+3. Reports
 
 ## Technologies used
 

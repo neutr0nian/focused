@@ -14,7 +14,7 @@ const Navbar = () => {
     <div>
       <Flex minWidth="max-content" alignItems="center" gap="2" mb={2}>
         <Box p="2">
-          <Heading size="md">Focus</Heading>
+          <Heading size="md">Focused</Heading>
         </Box>
         <Spacer />
         <ButtonGroup gap="2">

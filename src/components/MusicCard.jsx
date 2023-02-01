@@ -59,13 +59,13 @@ let tracks = [
   playtime: '04:39'
 },
 ]
-const MusicCard = () => {
+const MusicCard = ({playlistName}) => {
   const [currentTrack, setCurrentTrack] = useState(tracks[0]);
   
   return (
       <Card>
         <CardBody>
-          <Heading size="md">Playlist name</Heading>
+          <Heading size="md" color='gray.700'>{playlistName}</Heading>
           <Stack mt="4" spacing="3">
             <Stack height='300px' overflow='scroll'>
 
