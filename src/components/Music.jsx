@@ -13,19 +13,18 @@ import {
   Select,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { useGetPlaylistsQuery, useLazyGetPlaylistsQuery } from "../services/musicApi";
+import { useGetPlaylistsQuery } from "../services/musicApi";
 import MusicCard from "./MusicCard";
 
 const Music = () => {
   const [searchText, setSearchText] = useState('study music');
-  const {data, isFetching} = useGetPlaylistsQuery(searchText);
-  const [trigger, result] = useLazyGetPlaylistsQuery();
+  // const {data, isFetching} = useGetPlaylistsQuery(searchText);
 
   // const [playlists, setPlaylists] = useState([]);
 
   let playlists = []
-  if (isFetching) return 'Loading';
-  playlists = data?.playlists?.items;
+  // if (isFetching) return 'Loading';
+  // playlists = data?.playlists?.items;
   
   console.log('playlists: ',playlists);
 
@@ -64,7 +63,7 @@ const Music = () => {
       >
         {
           playlists.slice(0,4).map((playlist, index) => (
-            <GridItem colSpan={1}>
+            <GridItem colSpan={1} key={index}>
               <Image w='300px' h='200px' borderRadius={7} objectFit='cover' cursor='pointer'src={playlist.data.images.items[0].sources[0].url} />
             </GridItem>
           ))
@@ -75,7 +74,7 @@ const Music = () => {
 
         {
           playlists.slice(4).map((playlist, index) => (
-             <GridItem colSpan={1}>
+             <GridItem colSpan={1} key={index}>
               <Image objectFit='cover' w='300px' h='200px' borderRadius={7} cursor='pointer' src={playlist.data.images.items[0].sources[0].url} />
             </GridItem>
           ))
