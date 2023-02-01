@@ -4,14 +4,16 @@ import {
   ButtonGroup,
   Center,
   Flex,
-  Heading,
   Text,
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
+import { dispSecondsAsMins } from "../utils/DisplayTime";
 import Tasks from "./Tasks";
 
 const Timer = () => {
   const [timer, setTimer] = useState(1500);
+  const [timerType, setTimerType] = useState('work');
+
   const [start, setStart] = useState(false);
   const tick = useRef();
 
@@ -28,6 +30,7 @@ const Timer = () => {
   }, [start]);
 
     const handleClick = (timerType) => {
+      setTimerType(timerType);
     if (timerType == "short") {
       setTimer(300);
     } else if (timerType == "long") {
@@ -37,23 +40,17 @@ const Timer = () => {
     }
   };
 
-   const dispSecondsAsMins = (seconds) => {
-    const mins = Math.floor(seconds / 60);
-    const seconds_ = seconds % 60;
-    return mins.toString() + ":" + (seconds_ == 0 ? "00" : seconds_.toString());
-  };
-
   return (
     <>
       <Box bg="gray.100" borderRadius="6px" pt={5} pb={5} mt={10}>
         <Center>
           <Flex>
             <ButtonGroup>
-              <Button colorScheme="orange" onClick={() => handleClick("work")}>
+              <Button colorScheme={timerType === 'work' ? 'orange' : 'gray'} onClick={() => handleClick("work")}>
                 Work
               </Button>
-              <Button onClick={() => handleClick("short")}>Short Break</Button>
-              <Button onClick={() => handleClick("long")}>Long Break</Button>
+              <Button colorScheme={timerType === 'short' ? 'orange' : 'gray'} onClick={() => handleClick("short")}>Short Break</Button>
+              <Button colorScheme={timerType === 'long' ? 'orange' : 'gray'} onClick={() => handleClick("long")}>Long Break</Button>
             </ButtonGroup>
           </Flex>
         </Center>

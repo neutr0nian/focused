@@ -1,17 +1,22 @@
+import { CheckIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
+  ButtonGroup,
   Divider,
   Flex,
   Heading,
-  Input,
+  IconButton,
   Spacer,
   Text,
-  Textarea,
+  Tooltip,
   VStack,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import AddTask from "./AddTask";
+import Options from "./Options";
+
+
 
 const Tasks = () => {
   const [tasks, setTasks] = useState([
@@ -68,12 +73,25 @@ const Tasks = () => {
     setEditForm({ value: false, id: "" });
     setInputs({ id: "", name: "", note: "" });
   };
+
+  const handleCompletedTasks = (completedTask) => {
+    let updatedTasks = tasks.filter((task) => task.id !== completedTask.id);
+    setTasks(updatedTasks);
+  };
+
+  let menuOptions = [
+  { name: "Completed Tasks", icon: <CheckIcon />, action:handleClearTasks},
+  { name: "Delete All", icon: <DeleteIcon />,action:handleClearTasks},
+];
+
   return (
     <Box mt={4}>
       <Flex alignItems="baseline" mb={2}>
         <Heading size="md">Tasks</Heading>
         <Spacer />
-        <Button onClick={() => handleClearTasks()}>clear</Button>
+        {/* <IconButton icon={<DeleteIcon />} onClick={() => handleClearTasks()} />
+         */}
+         <Options options={menuOptions} />
       </Flex>
       <Divider />
       <VStack align="stretch">
@@ -94,14 +112,27 @@ const Tasks = () => {
                       )}
                     </Box>
                     <Spacer />
-                    <Button
-                      onClick={() => {
-                        setInputs(task);
-                        setEditForm({ value: true, id: task.id });
-                      }}
-                    >
-                      Edit
-                    </Button>
+                    <ButtonGroup>
+                      <Tooltip hasArrow label="Completed">
+                        <IconButton
+                          bg="white"
+                          icon={<CheckIcon />}
+                          onClick={() => {
+                            handleCompletedTasks(task);
+                          }}
+                        />
+                      </Tooltip>
+                      <Tooltip hasArrow label="Edit">
+                        <IconButton
+                          bg="white"
+                          icon={<EditIcon />}
+                          onClick={() => {
+                            setInputs(task);
+                            setEditForm({ value: true, id: task.id });
+                          }}
+                        />
+                      </Tooltip>
+                    </ButtonGroup>
                   </Flex>
                 </Box>
               )}

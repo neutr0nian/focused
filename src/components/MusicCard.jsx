@@ -1,4 +1,4 @@
-import { ArrowLeftIcon, ArrowRightIcon } from "@chakra-ui/icons";
+import { ArrowLeftIcon, ArrowRightIcon, CheckIcon } from "@chakra-ui/icons";
 import {
   Card,
   CardBody,
@@ -103,7 +103,7 @@ const MusicCard = () => {
               </Slider>
               <Flex gap={2}>
                 <IconButton icon={<ArrowLeftIcon />} />
-                <IconButton icon={<ArrowLeftIcon />} />
+                <IconButton icon={<CheckIcon />} />
 
                 <IconButton icon={<ArrowRightIcon />} />
               </Flex>
