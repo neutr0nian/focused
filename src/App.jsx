@@ -12,14 +12,11 @@ function App() {
         <Timer />
       </Container>
       <Box mt={4} m={4}>
-        <SimpleGrid columns={2} spacing={10}>
+        {/* <SimpleGrid columns={2} spacing={10}> */}
           <Box bg="gray.100" height="auto" p={4} borderRadius={7}>
             <Music />
           </Box>
-          <Box bg="purple" height="80px">
-            Notes and stuff
-          </Box>
-        </SimpleGrid>
+        {/* </SimpleGrid> */}
       </Box>
     </div>
   );

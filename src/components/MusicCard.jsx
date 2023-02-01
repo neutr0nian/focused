@@ -18,8 +18,7 @@ import React from "react";
 
 const MusicCard = () => {
   return (
-    <div>
-      <Card maxW="sm">
+      <Card>
         <CardBody>
           <Heading size="md">Currently Playing</Heading>
           <Stack mt="4" spacing="3">
@@ -47,7 +46,6 @@ const MusicCard = () => {
           </Stack>
         </CardBody>
       </Card>
-    </div>
   );
 };
 
