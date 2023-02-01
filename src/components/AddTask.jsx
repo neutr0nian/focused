@@ -11,7 +11,6 @@ import {
 import React from "react";
 
 const AddTask = ({ editForm, inputs, handleChange, addTask, hideForm }) => {
-  console.log(inputs);
   return (
     <Box bg="gray.100" border="1px gray" mb={2} borderRadius={7} p={4}>
       <VStack align="stretch">

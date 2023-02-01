@@ -117,7 +117,7 @@ const Tasks = () => {
             </>
           ))}
 
-        {showForm && (
+        {!editForm.value && showForm && (
           <AddTask
             editForm={false}
             inputs={inputs}
