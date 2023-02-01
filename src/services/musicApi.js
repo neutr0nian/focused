@@ -21,12 +21,12 @@ export const playlistsApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: baseUrl }),
   endpoints: (builder) => ({
     getPlaylists: builder.query({
-      query: (search) =>
+      query: (searchText) =>
         createPlaylistsRequest(
-          `/search/?q=studymusic&type=multi&offset=0&limit=10&numberOfTopResults=5`
+          `/search/?q=${searchText}&type=multi&offset=0&limit=10&numberOfTopResults=5`
         ),
     }),
   }),
 });
 
-export const { useGetPlaylistsQuery } = playlistsApi;
+export const { useGetPlaylistsQuery, useLazyGetPlaylistsQuery } = playlistsApi;
