@@ -7,20 +7,40 @@ import {
   Heading,
   Text,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Tasks from "./Tasks";
 
 const Timer = () => {
-  const [time, setTime] = useState("25:00");
+  const [timer, setTimer] = useState(1500);
+  const [start, setStart] = useState(false);
+  const tick = useRef();
 
-  const handleClick = (timerType) => {
-    if (timerType == "short") {
-      setTime("05:00");
-    } else if (timerType == "long") {
-      setTime("15:00");
+  useEffect(() => {
+    if (start) {
+      tick.current = setInterval(() => {
+        setTimer((timer) => timer - 1);
+      }, 1000);
     } else {
-      setTime("25:00");
+      clearInterval(tick.current);
     }
+
+    return () => clearInterval(tick.current);
+  }, [start]);
+
+    const handleClick = (timerType) => {
+    if (timerType == "short") {
+      setTimer(300);
+    } else if (timerType == "long") {
+      setTimer(900);
+    } else {
+      setTimer(1500);
+    }
+  };
+
+   const dispSecondsAsMins = (seconds) => {
+    const mins = Math.floor(seconds / 60);
+    const seconds_ = seconds % 60;
+    return mins.toString() + ":" + (seconds_ == 0 ? "00" : seconds_.toString());
   };
 
   return (
@@ -40,12 +60,12 @@ const Timer = () => {
         <Box>
           <Center mb={5} mt={5}>
             <Text fontSize="8xl" as="b" color="gray.700">
-              {time}
+              {dispSecondsAsMins(timer)}
             </Text>
           </Center>
           <Center>
-            <Button size="lg" bg="gray.300">
-              START
+            <Button size="lg" bg="gray.300" onClick={()=>setStart(!start)}>
+              { start ? 'STOP' : 'START'}
             </Button>
           </Center>
         </Box>
