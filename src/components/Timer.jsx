@@ -3,16 +3,23 @@ import {
   Button,
   ButtonGroup,
   Center,
+  Container,
   Flex,
+  HStack,
+  IconButton,
+  Spacer,
   Text,
+  Tooltip,
+  VStack,
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
 import { dispSecondsAsMins } from "../utils/DisplayTime";
 import Tasks from "./Tasks";
+import { AddIcon, MinusIcon } from "@chakra-ui/icons";
 
 const Timer = () => {
   const [timer, setTimer] = useState(1500);
-  const [timerType, setTimerType] = useState('work');
+  const [timerType, setTimerType] = useState("work");
 
   const [start, setStart] = useState(false);
   const tick = useRef();
@@ -29,8 +36,8 @@ const Timer = () => {
     return () => clearInterval(tick.current);
   }, [start]);
 
-    const handleClick = (timerType) => {
-      setTimerType(timerType);
+  const handleClick = (timerType) => {
+    setTimerType(timerType);
     if (timerType == "short") {
       setTimer(300);
     } else if (timerType == "long") {
@@ -46,26 +53,49 @@ const Timer = () => {
         <Center>
           <Flex>
             <ButtonGroup>
-              <Button colorScheme={timerType === 'work' ? 'orange' : 'gray'} onClick={() => handleClick("work")}>
-                Work
+              <Button
+                colorScheme={timerType === "work" ? "orange" : "gray"}
+                onClick={() => handleClick("work")}
+              >
+                Focus
               </Button>
-              <Button colorScheme={timerType === 'short' ? 'orange' : 'gray'} onClick={() => handleClick("short")}>Short Break</Button>
-              <Button colorScheme={timerType === 'long' ? 'orange' : 'gray'} onClick={() => handleClick("long")}>Long Break</Button>
+              <Button
+                colorScheme={timerType === "short" ? "blue" : "gray"}
+                onClick={() => handleClick("short")}
+              >
+                Short Break
+              </Button>
+              <Button
+                colorScheme={timerType === "long" ? "green" : "gray"}
+                onClick={() => handleClick("long")}
+              >
+                Long Break
+              </Button>
             </ButtonGroup>
           </Flex>
         </Center>
-        <Box>
-          <Center mb={5} mt={5}>
+        <VStack marginY={4}>
+          <HStack alignItems="center">
+            <Tooltip hasArrow label="Reduce time">
+              <IconButton
+                icon={<MinusIcon />}
+                onClick={() => setTimer(timer - 60)}
+              />
+            </Tooltip>
             <Text fontSize="8xl" as="b" color="gray.700">
               {dispSecondsAsMins(timer)}
             </Text>
-          </Center>
-          <Center>
-            <Button size="lg" bg="gray.300" onClick={()=>setStart(!start)}>
-              { start ? 'STOP' : 'START'}
-            </Button>
-          </Center>
-        </Box>
+            <Tooltip hasArrow label="Add time">
+              <IconButton
+                icon={<AddIcon />}
+                onClick={() => setTimer(timer + 60)}
+              />
+            </Tooltip>
+          </HStack>
+          <Button size="lg" bg="gray.300" onClick={() => setStart(!start)}>
+            {start ? "STOP" : "START"}
+          </Button>
+        </VStack>
       </Box>
       <Tasks />
     </>

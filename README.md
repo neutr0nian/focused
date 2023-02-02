@@ -7,7 +7,7 @@ The application is still in development and is open to public to contribute.
 ## Current features
 
 1. Add, Edit, Delete Task
-2. Start, Stop Timer
+2. Start, Stop and Edit Timer
 3. Load Playlists
 4. Load Tracks and Play Music
 
@@ -16,9 +16,8 @@ The application is still in development and is open to public to contribute.
 
 ## Upcoming features
 
-1. Edit timer
-2. Dark Mode
-3. Reports
+1. Dark Mode
+2. Reports
 
 ## Technologies used
 
