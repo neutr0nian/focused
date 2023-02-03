@@ -7,46 +7,101 @@ import {
   ModalBody,
   ModalCloseButton,
   useDisclosure,
-  Button
+  Button,
+  HStack,
+  Box,
+  Text,
+  Container,
+  Center
 } from '@chakra-ui/react'
+import { useState } from 'react';
 import BarChart from './Charts/BarChart';
 
+const data = [
+    {
+        label: 'Sun', value: 2,
+    },
+     {
+        label: 'Mon', value: 6,
+    },
+     {
+        label: 'Tue', value: 10,
+    },
+     {
+        label: 'Wed', value: 7,
+    },
+     {
+        label: 'Thu', value: 10,
+    },
+     {
+        label: 'Fri', value: 4,
+    },
+     {
+        label: 'Sat', value: 5,
+    },
+]
+const monthData = [
+    {
+        label: 'Jan', value: 9,
+    },
+     {
+        label: 'Feb', value: 2,
+    },
+     {
+        label: 'Mar', value: 7,
+    },
+     {
+        label: 'Apr', value: 3,
+    },
+     {
+        label: 'May', value: 4,
+    },
+     {
+        label: 'Jun', value: 9,
+    },
+     {
+        label: 'July', value: 5,
+    },
+]
 const Reports = ({isOpen, onOpen, onClose}) => {
-//   const { isOpen, onOpen, onClose } = useDisclosure()
-    const data = [
-        {
-            label: 'Sun', value: 2,
-        },
-         {
-            label: 'Mon', value: 6,
-        },
-         {
-            label: 'Tue', value: 10,
-        },
-         {
-            label: 'Wed', value: 7,
-        },
-         {
-            label: 'Thu', value: 10,
-        },
-         {
-            label: 'Fri', value: 4,
-        },
-         {
-            label: 'Sat', value: 5,
-        },
-    ]
+    const isActive = 'orange.300';
+    const [reportType, setReportType] = useState('daily');
+
+    const handleReportType = (type) => {
+        switch (type) {
+            case 'weekly':
+                return <BarChart data={data} />
+            case 'monthly':
+                return <BarChart data={monthData} />
+            default:
+                return <BarChart data={data} />
+        }
+    }
   return (
     <>
-      <Button size='sm' colorScheme='teal' onClick={onOpen}>Report</Button>
+      <Button size='sm' colorScheme='teal' onClick={onOpen}>Reports</Button>
 
       <Modal isOpen={isOpen} onClose={onClose} size='3xl'>
         <ModalOverlay />
         <ModalContent >
-          <ModalHeader>Daily Report</ModalHeader>
+          <ModalHeader>Reports</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-                <BarChart data={data} />
+            <Center>
+
+            <HStack spacing='24px' align='stretch' cursor='pointer' mb={4} >
+                <Box bg={isActive}  p={5} borderRadius={6} onClick={()=>setReportType('daily')}>
+                    <Text as='b'>Daily</Text>
+                </Box>
+                 <Box bg='gray.200' p={5} borderRadius={6}  onClick={()=>setReportType('weekly')}>
+                    <Text>Weekly</Text>
+                </Box> 
+                <Box bg='gray.200' p={5} borderRadius={6}  onClick={()=>setReportType('monthly')}>
+                    <Text>Monthly</Text>
+                </Box>
+            </HStack>
+            </Center>
+            {handleReportType(reportType)}
           </ModalBody>
 
           <ModalFooter>

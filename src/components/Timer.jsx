@@ -92,7 +92,7 @@ const Timer = () => {
               />
             </Tooltip>
           </HStack>
-          <Button size="lg" bg="gray.300" onClick={() => setStart(!start)}>
+          <Button size="lg" bg="gray.300" onClick={() => setStart(!start)} borderBottom='4px solid orange' >
             {start ? "STOP" : "START"}
           </Button>
         </VStack>
