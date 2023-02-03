@@ -6,10 +6,14 @@ import {
   Flex,
   Heading,
   Spacer,
+  useDisclosure
 } from "@chakra-ui/react";
 import React from "react";
+import Reports from "./Reports";
 
 const Navbar = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure()
+
   return (
     <div>
       <Flex minWidth="max-content" alignItems="center" gap="2" mb={2}>
@@ -18,9 +22,7 @@ const Navbar = () => {
         </Box>
         <Spacer />
         <ButtonGroup gap="2">
-          <Button size="sm" colorScheme="teal">
-            Report
-          </Button>
+          <Reports isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
           <Button size="sm" colorScheme="teal">
             Settings
           </Button>

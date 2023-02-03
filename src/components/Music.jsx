@@ -18,19 +18,19 @@ import MusicCard from "./MusicCard";
 
 const Music = () => {
   const [searchText, setSearchText] = useState('study music');
-  const {data, isFetching} = useGetPlaylistsQuery(searchText);
+  // const {data, isFetching} = useGetPlaylistsQuery(searchText);
 
   // const [playlists, setPlaylists] = useState([]);
 
   let playlists = []
-  if (isFetching) return 'Loading';
-  playlists = data?.playlists?.items;
+  // if (isFetching) return 'Loading';
+  // playlists = data?.playlists?.items;
   
-  console.log('playlists: ',playlists);
+  // console.log('playlists: ',playlists);
 
   const handleChange = (e) => {
     setSearchText(e.target.value)
-    playlists = result?.playlists?.items;
+    // playlists = result?.playlists?.items;
   }
 
   const handleSearch = () => {
