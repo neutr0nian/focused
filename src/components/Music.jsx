@@ -1,19 +1,13 @@
 import {
   Box,
-  Center,
-  SimpleGrid,
   Text,
   Grid,
   GridItem,
   Image,
-  Input,
   Container,
-  Button,
-  Flex,
   Select,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { useGetPlaylistsQuery } from "../services/musicApi";
 import MusicCard from "./MusicCard";
 
 const Music = () => {

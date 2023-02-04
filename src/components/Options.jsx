@@ -2,7 +2,8 @@ import { AddIcon, EditIcon, ExternalLinkIcon, HamburgerIcon, RepeatIcon } from '
 import { IconButton, Menu,MenuItem, MenuButton, MenuList } from '@chakra-ui/react'
 import React from 'react'
 
-const Options = ({options}) => {
+const Options = ({options, actions}) => {
+  console.log(actions)
   return (
     <Menu>
   <MenuButton
@@ -14,11 +15,14 @@ const Options = ({options}) => {
   />
   <MenuList>
     {
-        options.map((option) => (
-        <MenuItem icon={option?.icon} onClick={()=>option.action()}>
+        options.map((option) => {
+          if(option.isVisible){
+
+       return <MenuItem icon={option?.icon} onClick={()=> actions[option.name]()}>
            {option.name}
         </MenuItem>
-        ))
+          }
+})
     }
   </MenuList>
 </Menu>

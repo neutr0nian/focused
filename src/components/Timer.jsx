@@ -3,22 +3,21 @@ import {
   Button,
   ButtonGroup,
   Center,
-  Container,
   Flex,
   HStack,
   IconButton,
-  Spacer,
   Text,
   Tooltip,
   VStack,
 } from "@chakra-ui/react";
 import React, { useEffect, useRef, useState } from "react";
-import { dispSecondsAsMins } from "../utils/DisplayTime";
-import Tasks from "./Tasks";
-import { AddIcon, MinusIcon } from "@chakra-ui/icons";
 
-const minsFocused= []
-let startTime = 0
+import { dispSecondsAsMins } from "../utils/DisplayTime";
+import { AddIcon, MinusIcon } from "@chakra-ui/icons";
+import DisplayTasks from "./Tasks/DisplayTasks";
+
+const minsFocused = [];
+let startTime = 0;
 
 const Timer = () => {
   const [timer, setTimer] = useState(1500);
@@ -31,10 +30,8 @@ const Timer = () => {
     if (start) {
       startTime = timer;
       tick.current = setInterval(() => {
-        if(timer > 0)
-          setTimer((timer) => timer - 1);
-        else
-          clearInterval(tick.current)
+        if (timer > 0) setTimer((timer) => timer - 1);
+        else clearInterval(tick.current);
       }, 1000);
     } else {
       clearInterval(tick.current);
@@ -44,23 +41,23 @@ const Timer = () => {
   }, [start]);
 
   useEffect(() => {
-    if(timer === 0){
-        setStart(false);
-        storeProgess(startTime/60);
-        setTimeout(() => {
-          handleClick(timerType);
-        },3000)
+    if (timer === 0) {
+      setStart(false);
+      storeProgess(startTime / 60);
+      setTimeout(() => {
+        handleClick(timerType);
+      }, 3000);
       clearInterval(tick.current);
     }
-  }, [timer])
+  }, [timer]);
 
   const storeProgess = (time) => {
-    if (timerType === 'work'){
+    if (timerType === "work") {
       minsFocused.push(time);
-      localStorage.removeItem('minsFocused');
-      localStorage.setItem('minsFocused', minsFocused);
+      localStorage.removeItem("minsFocused");
+      localStorage.setItem("minsFocused", minsFocused);
     }
-  }
+  };
 
   const handleClick = (timerType) => {
     setTimerType(timerType);
@@ -104,7 +101,7 @@ const Timer = () => {
           <HStack alignItems="center">
             <Tooltip hasArrow label="Reduce time">
               <IconButton
-              isDisabled={timer <= 1}
+                isDisabled={timer <= 1}
                 icon={<MinusIcon />}
                 onClick={() => setTimer(timer - 60)}
               />
@@ -119,12 +116,17 @@ const Timer = () => {
               />
             </Tooltip>
           </HStack>
-          <Button size="lg" bg="gray.300" onClick={() => setStart(!start)} borderBottom='4px solid orange' >
+          <Button
+            size="lg"
+            bg="gray.300"
+            onClick={() => setStart(!start)}
+            borderBottom="4px solid orange"
+          >
             {start ? "STOP" : "START"}
           </Button>
         </VStack>
       </Box>
-      <Tasks />
+      <DisplayTasks />
     </>
   );
 };

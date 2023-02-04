@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 
-import { Navbar, Timer, Tasks, Music } from "./components";
+import { Navbar, Timer, Music } from "./components";
 import { Box, Container, SimpleGrid } from "@chakra-ui/react";
 
 function App() {
