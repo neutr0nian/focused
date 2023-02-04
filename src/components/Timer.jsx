@@ -25,11 +25,15 @@ const Timer = () => {
   const tick = useRef();
 
   useEffect(() => {
-    if (start) {
+    if (start && timer != 0) {
       tick.current = setInterval(() => {
         setTimer((timer) => timer - 1);
       }, 1000);
     } else {
+      if(timer == 0){
+        setStart(false);
+        handleClick(timerType)
+      }
       clearInterval(tick.current);
     }
 
@@ -78,6 +82,7 @@ const Timer = () => {
           <HStack alignItems="center">
             <Tooltip hasArrow label="Reduce time">
               <IconButton
+              isDisabled={timer <= 0}
                 icon={<MinusIcon />}
                 onClick={() => setTimer(timer - 60)}
               />
