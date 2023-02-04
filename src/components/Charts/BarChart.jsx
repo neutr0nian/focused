@@ -1,3 +1,4 @@
+import { Center } from '@chakra-ui/react';
 import { scaleBand, scaleLinear } from 'd3';
 import React from 'react'
 import Bars from './Bars';
@@ -10,20 +11,23 @@ const BarChart = ({data}) => {
   const height = 400 - margin.top - margin.bottom;
 
 
-  const scaleX = scaleBand().domain(data.map(d => d.label)).range([0, width]).padding(0.5)
+  const scaleX = scaleBand().domain(data.map(d => d.label)).range([0, width]).padding(0.4)
   const scaleY = scaleLinear().domain([0, Math.max(...data.map(({value}) => value))]).range([height, 0]);
 
   return (
+    <Center>
+
     <svg
       width={width + margin.left + margin.right}
       height={height + margin.top + margin.bottom}
-    >
+      >
       <g transform={`translate(${margin.left}, ${margin.top})`}>
         <XAxis scale={scaleX} transform={`translate(0, ${height})`} />
         <YAxis scale={scaleY} />
         <Bars data={data} height={height} scaleX={scaleX} scaleY={scaleY} />
       </g>
     </svg>
+      </Center>
   );
 }
 

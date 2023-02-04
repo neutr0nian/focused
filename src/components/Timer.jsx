@@ -17,6 +17,9 @@ import { dispSecondsAsMins } from "../utils/DisplayTime";
 import Tasks from "./Tasks";
 import { AddIcon, MinusIcon } from "@chakra-ui/icons";
 
+const minsFocused= []
+let startTime = 0
+
 const Timer = () => {
   const [timer, setTimer] = useState(1500);
   const [timerType, setTimerType] = useState("work");
@@ -25,20 +28,39 @@ const Timer = () => {
   const tick = useRef();
 
   useEffect(() => {
-    if (start && timer != 0) {
+    if (start) {
+      startTime = timer;
       tick.current = setInterval(() => {
-        setTimer((timer) => timer - 1);
+        if(timer > 0)
+          setTimer((timer) => timer - 1);
+        else
+          clearInterval(tick.current)
       }, 1000);
     } else {
-      if(timer == 0){
-        setStart(false);
-        handleClick(timerType)
-      }
       clearInterval(tick.current);
     }
 
     return () => clearInterval(tick.current);
   }, [start]);
+
+  useEffect(() => {
+    if(timer === 0){
+        setStart(false);
+        storeProgess(startTime/60);
+        setTimeout(() => {
+          handleClick(timerType);
+        },3000)
+      clearInterval(tick.current);
+    }
+  }, [timer])
+
+  const storeProgess = (time) => {
+    if (timerType === 'work'){
+      minsFocused.push(time);
+      localStorage.removeItem('minsFocused');
+      localStorage.setItem('minsFocused', minsFocused);
+    }
+  }
 
   const handleClick = (timerType) => {
     setTimerType(timerType);
@@ -82,7 +104,7 @@ const Timer = () => {
           <HStack alignItems="center">
             <Tooltip hasArrow label="Reduce time">
               <IconButton
-              isDisabled={timer <= 0}
+              isDisabled={timer <= 1}
                 icon={<MinusIcon />}
                 onClick={() => setTimer(timer - 60)}
               />

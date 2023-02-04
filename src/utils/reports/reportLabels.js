@@ -16,3 +16,9 @@ const monthlyLabels = [
   "Nov",
   "Dec",
 ];
+
+export default {
+  dailyLabels,
+  weeklyLabels,
+  monthlyLabels,
+};

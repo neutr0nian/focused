@@ -64,7 +64,7 @@ const monthData = [
     },
 ]
 const Reports = ({isOpen, onOpen, onClose}) => {
-    const isActive = 'orange.300';
+    const isActive = 'orange.400';
     const [reportType, setReportType] = useState('daily');
 
     const handleReportType = (type) => {
@@ -90,11 +90,11 @@ const Reports = ({isOpen, onOpen, onClose}) => {
             <Center>
 
             <HStack spacing='24px' align='stretch' cursor='pointer' mb={4} >
-                <Box bg={isActive}  p={5} borderRadius={6} onClick={()=>setReportType('daily')}>
-                    <Text as='b'>Daily</Text>
+                <Box bg='gray.200'  p={5} borderRadius={6} onClick={()=>setReportType('daily')}>
+                    <Text>Daily</Text>
                 </Box>
-                 <Box bg='gray.200' p={5} borderRadius={6}  onClick={()=>setReportType('weekly')}>
-                    <Text>Weekly</Text>
+                 <Box bg={isActive} p={5} borderRadius={6}  onClick={()=>setReportType('weekly')}>
+                    <Text as='b' color='white'>Weekly</Text>
                 </Box> 
                 <Box bg='gray.200' p={5} borderRadius={6}  onClick={()=>setReportType('monthly')}>
                     <Text>Monthly</Text>
