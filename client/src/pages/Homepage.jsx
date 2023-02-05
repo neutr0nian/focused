@@ -1,11 +1,10 @@
 import { Box, Container } from '@chakra-ui/react'
 import React from 'react'
-import { Music, Navbar, Timer } from '../components'
+import { Music, Timer } from '../components'
 
 const Homepage = () => {
   return (
     <>
-        <Navbar />
     <Container maxW={600} mt={4}>
         <Timer />
       </Container>
