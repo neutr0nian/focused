@@ -8,9 +8,16 @@ import {
   Flex,
   ButtonGroup,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useRef } from "react";
+import { useEffect } from "react";
 
 const AddTask = ({ editForm, inputs, handleChange, addTask, hideForm }) => {
+  const title = useRef(null);
+
+  useEffect(() => {
+    title.current.focus();
+  },[])
+  
   return (
     <Box bg="gray.100" border="1px gray" mb={2} borderRadius={7} p={4}>
       <VStack align="stretch">
@@ -18,6 +25,7 @@ const AddTask = ({ editForm, inputs, handleChange, addTask, hideForm }) => {
           placeholder="What are you working on?"
           bg="white"
           name="name"
+          ref={title}
           value={inputs.name}
           onChange={handleChange}
         ></Input>
