@@ -14,7 +14,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 import { dispSecondsAsMins } from "../utils/DisplayTime";
 import { AddIcon, MinusIcon } from "@chakra-ui/icons";
-import DisplayTasks from "./Tasks/DisplayTasks";
+import DisplayTasks from "./tasks/DisplayTasks";
 
 const minsFocused = [];
 let startTime = 0;

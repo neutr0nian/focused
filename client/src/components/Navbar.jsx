@@ -9,6 +9,7 @@ import {
   useDisclosure
 } from "@chakra-ui/react";
 import React from "react";
+import { Link } from "react-router-dom";
 import Reports from "./Reports";
 
 const Navbar = () => {
@@ -23,6 +24,11 @@ const Navbar = () => {
         <Spacer />
         <ButtonGroup gap="2">
           <Reports isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
+          <Link to='/projects'>
+          <Button size="sm" colorScheme="teal">
+            Projects
+          </Button>
+          </Link>
           <Button size="sm" colorScheme="teal">
             Settings
           </Button>
