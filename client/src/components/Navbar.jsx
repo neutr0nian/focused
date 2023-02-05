@@ -5,7 +5,9 @@ import {
   Divider,
   Flex,
   Heading,
+  HStack,
   Spacer,
+  Text,
   useDisclosure
 } from "@chakra-ui/react";
 import React from "react";
@@ -17,25 +19,28 @@ const Navbar = () => {
 
   return (
     <div>
-      <Flex minWidth="max-content" alignItems="center" gap="2" mb={2}>
+      <Flex minWidth="max-content" alignItems="center" gap="2" marginX={2} marginY={2}>
         <Box p="2">
+          <Link to='/'>
           <Heading size="md">Focused</Heading>
+          </Link>
         </Box>
         <Spacer />
-        <ButtonGroup gap="2">
+        <HStack spacing='20px'>
+
           <Reports isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
           <Link to='/projects'>
-          <Button size="sm" colorScheme="teal">
+          <Text colorScheme="teal">
             Projects
-          </Button>
+          </Text>
           </Link>
-          <Button size="sm" colorScheme="teal">
+          <Text size="sm" colorScheme="teal">
             Settings
-          </Button>
+          </Text>
           <Button size="sm" colorScheme="teal">
             Log in
           </Button>
-        </ButtonGroup>
+        </HStack>
       </Flex>
       <Divider size="xl" colorScheme="purple" />
     </div>
