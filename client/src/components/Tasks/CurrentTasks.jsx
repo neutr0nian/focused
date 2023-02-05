@@ -10,17 +10,17 @@ const CurrentTasks = ({ tasks, setTasks, setCompletedTasks }) => {
     id: "",
   });
 
-  const [inputs, setInputs] = useState({ id: "", name: "", note: "" });
+  const [inputs, setInputs] = useState({ id: "", title: "", note: "" });
 
   const handleAddTasks = (task) => {
     console.log(tasks.length);
     setTasks([...tasks, { ...task, id: String(tasks.length + 1) }]);
-    setInputs({ id: "", name: "", note: "" });
+    setInputs({ id: "", title: "", note: "" });
   };
 
   const handleChange = (e) => {
-    if (e.target.name === "name")
-      setInputs({ ...inputs, name: e.target.value });
+    if (e.target.name === "title")
+      setInputs({ ...inputs, title: e.target.value });
     else {
       setInputs({ ...inputs, note: e.target.value });
     }
@@ -31,7 +31,7 @@ const CurrentTasks = ({ tasks, setTasks, setCompletedTasks }) => {
       let updatedTasks = tasks.map((task) => {
         if (task.id == values.id) {
           console.log("found the task", task);
-          task.name = values.name;
+          task.title = values.title;
           task.note = values.note;
         }
         return task;
@@ -40,7 +40,7 @@ const CurrentTasks = ({ tasks, setTasks, setCompletedTasks }) => {
     }
 
     setEditForm({ value: false, id: "" });
-    setInputs({ id: "", name: "", note: "" });
+    setInputs({ id: "", title: "", note: "" });
   };
 
   const handleCompletedTasks = (completedTask) => {

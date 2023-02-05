@@ -24,9 +24,9 @@ const AddTask = ({ editForm, inputs, handleChange, addTask, hideForm }) => {
         <Input
           placeholder="What are you working on?"
           bg="white"
-          name="name"
+          name="title"
           ref={title}
-          value={inputs.name}
+          value={inputs.title}
           onChange={handleChange}
         ></Input>
         <Textarea

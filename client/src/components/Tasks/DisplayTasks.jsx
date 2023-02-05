@@ -34,12 +34,12 @@ const DisplayTasks = () => {
   const [tasks, setTasks] = useState([
     {
       id: "1",
-      name: "Write an article",
+      title: "Write an article",
       note: "Medium post at 4:00 pm",
     },
     {
       id: "2",
-      name: "Read a book",
+title: "Read a book",
       note: "Think like monk",
     },
   ]);
