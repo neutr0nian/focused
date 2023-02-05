@@ -5,8 +5,8 @@ import { Music, Navbar, Timer } from '../components'
 const Homepage = () => {
   return (
     <>
-    <Container maxW={600} mt={4}>
         <Navbar />
+    <Container maxW={600} mt={4}>
         <Timer />
       </Container>
       <Box mt={4} m={4}>

@@ -15,7 +15,7 @@ import {
   Center
 } from '@chakra-ui/react'
 import { useState } from 'react';
-import BarChart from './Charts/BarChart';
+import BarChart from './charts/BarChart';
 
 const data = [
     {
@@ -79,7 +79,7 @@ const Reports = ({isOpen, onOpen, onClose}) => {
     }
   return (
     <>
-      <Button size='sm' colorScheme='teal' onClick={onOpen}>Reports</Button>
+      <Text size='sm' colorScheme='teal' cursor='pointer' onClick={onOpen}>Reports</Text>
 
       <Modal isOpen={isOpen} onClose={onClose} size='3xl'>
         <ModalOverlay />
