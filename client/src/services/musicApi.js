@@ -1,7 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-console.log("KEY: ", import.meta.env.VITE_SPOTIFY_API_KEY);
-
 const playlistsApiHeaders = {
   "X-RapidAPI-Key": import.meta.env.VITE_SPOTIFY_API_KEY,
   "X-RapidAPI-Host": import.meta.env.VITE_SPOTIFY_API_HOST,

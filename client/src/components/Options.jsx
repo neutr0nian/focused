@@ -3,7 +3,6 @@ import { IconButton, Menu,MenuItem, MenuButton, MenuList } from '@chakra-ui/reac
 import React from 'react'
 
 const Options = ({options, actions}) => {
-  console.log(actions)
   return (
     <Menu>
   <MenuButton

@@ -20,7 +20,6 @@ const Music = () => {
   //   if (isFetching) return "Loading";
   //   playlists = data?.playlists?.items;
 
-  console.log("playlists: ", playlists);
 
   const handleChange = (e) => {
     setSearchText(e.target.value);

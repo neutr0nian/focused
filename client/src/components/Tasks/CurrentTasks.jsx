@@ -64,7 +64,6 @@ const CurrentTasks = ({ tasks, setTasks, setCompletedTasks }) => {
                   handleCompletedTasks={handleCompletedTasks}
                 />
               )}
-              {console.log(editForm, task)}
               {editForm.id === task.id && (
           <ScaleFade in={editForm.id === task.id} >
 
