@@ -1,9 +1,17 @@
-import { Box, Button, Flex, HStack, Spacer, Text, useDisclosure } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  HStack,
+  Spacer,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import useDataFetching from "../hooks/useDataFetching";
 import Lane from "./Lane";
-import {AddIcon, ArrowRightIcon, CheckIcon} from '@chakra-ui/icons';
+import { AddIcon, ArrowRightIcon, CheckIcon } from "@chakra-ui/icons";
 
 import CrudModal from "../../common/modals/CrudModal";
 import ViewTask from "./ViewTask";
@@ -28,9 +36,9 @@ function onDragOver(e) {
 const Board = () => {
   const [loading, error, data] = useDataFetching(URL);
   const [tasks, setTasks] = useState([]);
-  const [inputs, setInputs] = useState({id:'', title: '', body: ''});
+  const [inputs, setInputs] = useState({ id: "", title: "", body: "" });
 
-  const {isOpen, onOpen, onClose} = useDisclosure();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     setTasks(data);
@@ -47,61 +55,70 @@ const Board = () => {
     setTasks(updatedTasks);
   }
 
-  function handleInputChange(e){
-    console.log(e);
-    setInputs({...inputs, [e.target.name]: e.target.value})
+  function handleInputChange(e) {
+    setInputs({ ...inputs, [e.target.name]: e.target.value });
   }
 
-  function handleUpdateTask(newTask){
-    if(!newTask.hasOwnProperty('laneId')){
-      newTask['laneId'] = 1
+  function handleUpdateTask(newTask) {
+    if (!newTask.hasOwnProperty("laneId")) {
+      newTask["lane"] = 1;
     }
-    const updatedTasks = tasks.filter((task) => task.id !== newTask.id)
-    setTasks([...updatedTasks, newTask])
-    setInputs({id:'', title: '', body: ''})
+    const updatedTasks = tasks.filter((task) => task.id !== newTask.id);
+    updatedTasks.push(newTask);
+    setTasks(updatedTasks);
+    setInputs({ id: "", title: "", body: "" });
   }
 
-   useEffect(() =>{
-    setInputs({id:'', title:'', body:''})
-  },[isOpen])
+  useEffect(() => {
+    setInputs({ id: "", title: "", body: "" });
+  }, [isOpen]);
 
   return (
     <>
-     <CrudModal
+      <CrudModal
         isOpen={isOpen}
         onClose={onClose}
-        title={"Task Details"}
-        body={<ViewTask inputs={inputs} onClose={onClose} handleChange={handleInputChange} handleSubmit={handleUpdateTask} />}
+        title={"Add Task"}
+        body={
+          <ViewTask
+            inputs={inputs}
+            onClose={onClose}
+            handleChange={handleInputChange}
+            handleSubmit={handleUpdateTask}
+          />
+        }
       />
-    <Box h={400} margin={5}>
-      <Flex>
-      <Text as='b' fontSize='lg' >Project Tasks</Text>
-    <Spacer/>
-     <Button leftIcon={<AddIcon />} onClick={onOpen}>
+      <Box h={400} margin={5}>
+        <Flex>
+          <Text as="b" fontSize="lg">
+            Project Tasks
+          </Text>
+          <Spacer />
+          <Button leftIcon={<AddIcon />} onClick={onOpen}>
             New
           </Button>
-      </Flex>
-      <HStack spacing={10} align='stretch' mt={2}>
-      {lanes.map((lane) => (
-        <Lane
-        key={lane.id}
-        laneId={lane.id}
-        title={lane.title}
-        loading={loading}
-        error={error}
-        taskState={inputs}
-        setTaskState={setInputs}
-        tasks={tasks.filter((task) => task.lane === lane.id)}
-        handleEditTask={handleInputChange}
-        handleUpdateTask={handleUpdateTask}
-        onDragStart={onDragStart}
-        onDragOver={onDragOver}
-        onDrop={onDrop}
-        />
-        ))}
-          </HStack>
-    </Box>
-        </>
+        </Flex>
+        <HStack spacing={5} align="stretch" mt={2}>
+          {lanes.map((lane) => (
+            <Lane
+              key={lane.id}
+              laneId={lane.id}
+              title={lane.title}
+              loading={loading}
+              error={error}
+              taskState={inputs}
+              setTaskState={setInputs}
+              tasks={tasks.filter((task) => task.lane === lane.id)}
+              handleEditTask={handleInputChange}
+              handleUpdateTask={handleUpdateTask}
+              onDragStart={onDragStart}
+              onDragOver={onDragOver}
+              onDrop={onDrop}
+            />
+          ))}
+        </HStack>
+      </Box>
+    </>
   );
 };
 

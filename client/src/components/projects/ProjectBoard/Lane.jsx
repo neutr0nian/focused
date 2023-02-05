@@ -23,14 +23,15 @@ const Lane = ({
       onDragOver={onDragOver}
       onDrop={(e)=>onDrop(e, laneId)}
       p={2}
-      minW={300}
+      w={500}
+      minH={550}
     >
       <Text as="b" ml={2}>{title}</Text>
       <Divider marginY={2} />
       {loading || error ? (
         <span>{error || 'Loading'}</span>
       ):(
-        <VStack spacing={4}>
+        <VStack spacing={2}>
 {
         tasks.map((task) => (
           <Task

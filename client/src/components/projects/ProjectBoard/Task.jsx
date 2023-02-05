@@ -1,16 +1,14 @@
-import { Box, Text, useDisclosure } from "@chakra-ui/react";
+import { CloseIcon } from "@chakra-ui/icons";
+import { Box, Flex, Spacer, Text, useDisclosure } from "@chakra-ui/react";
 import React from "react";
-import { useEffect } from "react";
+import { trimString } from "../../../utils/helper";
 import CrudModal from "../../common/modals/CrudModal";
 import ViewTask from "./ViewTask";
 
+
 const Task = ({ task, inputState, setInputState, handleEdit, handleUpdate, onDragStart }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
-  useEffect(() =>{
-    setInputState({id:'', title:'', body:''})
-  },[onClose])
-
+  
   return (
     <>
       <CrudModal
@@ -21,21 +19,24 @@ const Task = ({ task, inputState, setInputState, handleEdit, handleUpdate, onDra
         body={<ViewTask inputs={inputState} onClose={onClose} handleChange={handleEdit} handleSubmit={handleUpdate} />}
       />
       <Box
-        bg="gray.200"
+        bg="gray.100"
         p={3}
         draggable
         cursor='pointer'
         borderRadius={6}
         onDragStart={(e) => onDragStart(e, task.id)}
-        onClick={()=>{
+      >
+        <Flex alignItems='center'>
+        <Text as="b" fontSize="md">
+          {task.title.length > 30 ? trimString(task.title, 30) + '...' : task.title}
+        </Text>
+          <Spacer/>
+          <CloseIcon fontSize='xs' onClick={()=>alert('dlete?')}/>
+        </Flex>
+        <Text fontSize="md"  onClick={()=>{
           setInputState(task);
           onOpen()
-        }}
-      >
-        <Text as="b" fontSize="md">
-          {task.title}
-        </Text>
-        <Text fontSize="md">{task.body}</Text>
+        }}>{task.body}</Text>
       </Box>
     </>
   );
