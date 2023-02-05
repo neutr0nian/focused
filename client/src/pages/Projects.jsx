@@ -1,23 +1,34 @@
-import { AddIcon } from '@chakra-ui/icons'
-import { Box, Button, Flex, Spacer, Text } from '@chakra-ui/react'
-import React from 'react'
-import Navbar from '../components/Navbar'
-import ProjectTable from '../components/projects/ProjectTable'
+import { AddIcon } from "@chakra-ui/icons";
+import {
+  Box,
+  Button,
+  Flex,
+  Spacer,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
+import React from "react";
+import Navbar from "../components/Navbar";
+import { NewProject, ProjectTable } from "../components/projects";
 
 const Projects = () => {
-  return (
-    <Box>
-    <Navbar />
-    <Box p={4}>
-      <Flex p={2}>
-      <Text as='b' fontSize='lg'>Projects</Text>
-    <Spacer />
-    <Button leftIcon={<AddIcon />}>New</Button>
-      </Flex>
-      <ProjectTable />
-    </Box>
-    </Box>
-  )
-}
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
-export default Projects
+  return (
+      <Box p={4}>
+        <Flex p={2}>
+          <Text as="b" fontSize="lg">
+            Projects
+          </Text>
+          <Spacer />
+          <Button leftIcon={<AddIcon />} onClick={onOpen}>
+            New
+          </Button>
+          <NewProject isOpen={isOpen} onClose={onClose} />
+        </Flex>
+        <ProjectTable />
+      </Box>
+  );
+};
+
+export default Projects;
