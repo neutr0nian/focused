@@ -1,4 +1,4 @@
-import { Box, Button, VStack } from "@chakra-ui/react";
+import { Box, Button, ScaleFade, Slide, SlideFade, VStack } from "@chakra-ui/react";
 import React, { useState } from "react";
 import AddTask from "./AddTask";
 import TaskCard from "./TaskCard";
@@ -66,6 +66,8 @@ const CurrentTasks = ({ tasks, setTasks, setCompletedTasks }) => {
               )}
               {console.log(editForm, task)}
               {editForm.id === task.id && (
+          <ScaleFade in={editForm.id === task.id} >
+
                 <AddTask
                   key={task.id}
                   editForm={{ ...editForm, handle: handleEditForm }}
@@ -74,27 +76,33 @@ const CurrentTasks = ({ tasks, setTasks, setCompletedTasks }) => {
                   addTask={handleAddTasks}
                   hideForm={setShowForm}
                 />
+                </ScaleFade>
               )}
             </>
           ))}
 
         {!editForm.value && showForm && (
+          <SlideFade in={showForm} offsetY='-40px' >
           <AddTask
             editForm={false}
             inputs={inputs}
             handleChange={handleChange}
             addTask={handleAddTasks}
             hideForm={setShowForm}
-          />
+            />
+            </SlideFade>
         )}
         {!showForm && !editForm.value && (
+          <ScaleFade initialScale={0.9} in={!showForm && !editForm.value}>
           <Button
+          width='full'
             h={12}
             colorScheme="teal"
             onClick={() => setShowForm(!showForm)}
-          >
+            >
             Add Task
           </Button>
+            </ScaleFade>
         )}
       </VStack>
     </Box>
