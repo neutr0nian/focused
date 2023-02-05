@@ -1,8 +1,4 @@
-import {
-  Box,
-  Button,
-  VStack,
-} from "@chakra-ui/react";
+import { Box, Button, VStack } from "@chakra-ui/react";
 import React, { useState } from "react";
 import AddTask from "./AddTask";
 import TaskCard from "./TaskCard";
@@ -17,7 +13,8 @@ const CurrentTasks = ({ tasks, setTasks, setCompletedTasks }) => {
   const [inputs, setInputs] = useState({ id: "", name: "", note: "" });
 
   const handleAddTasks = (task) => {
-    setTasks([...tasks, { id: String(tasks.length + 1), ...task }]);
+    console.log(tasks.length);
+    setTasks([...tasks, { ...task, id: String(tasks.length + 1) }]);
     setInputs({ id: "", name: "", note: "" });
   };
 
@@ -67,6 +64,7 @@ const CurrentTasks = ({ tasks, setTasks, setCompletedTasks }) => {
                   handleCompletedTasks={handleCompletedTasks}
                 />
               )}
+              {console.log(editForm, task)}
               {editForm.id === task.id && (
                 <AddTask
                   key={task.id}
