@@ -21,7 +21,7 @@ Note: The play music feature is not working due to premium access for spotify.
 ![Home](screenshots/home_1.1.0.png)
 ![Music](screenshots/music.png)
 ![Reports](screenshots/reports.png)
-![Tasks](screenshots/tasks.gif | width=100)
+![Tasks](screenshots/tasks.gif = 600x400)
 
 ## Upcoming features
 
