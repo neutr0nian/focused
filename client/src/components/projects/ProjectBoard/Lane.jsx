@@ -8,6 +8,10 @@ const Lane = ({
   loading,
   error,
   tasks,
+  taskState,
+  setTaskState,
+  handleEditTask,
+  handleUpdateTask,
   onDragStart,
   onDragOver,
   onDrop,
@@ -21,7 +25,7 @@ const Lane = ({
       p={2}
       minW={300}
     >
-      <Text as="b">{title}</Text>
+      <Text as="b" ml={2}>{title}</Text>
       <Divider marginY={2} />
       {loading || error ? (
         <span>{error || 'Loading'}</span>
@@ -31,9 +35,11 @@ const Lane = ({
         tasks.map((task) => (
           <Task
             key={task.id}
-            id={task.id}
-            title={task.title}
-            body={task.body}
+            task={task}
+            inputState={taskState}
+            setInputState={setTaskState}
+            handleEdit={handleEditTask}
+            handleUpdate={handleUpdateTask}
             onDragStart={onDragStart}
             />
         ))
