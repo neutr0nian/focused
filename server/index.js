@@ -43,12 +43,14 @@ app.use(
   })
 );
 
-app.use((req, res, next) => {
-  next();
-});
-
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use((req, res, next) => {
+  res.locals.loggedIn = req.isAuthenticated();
+  res.locals.user = req.user;
+  next();
+});
 
 app.use("/api/v1/", router);
 

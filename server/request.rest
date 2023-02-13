@@ -23,3 +23,17 @@ Content-Type: application/json
     "email": "chavanpratik.pc@gmail.com",
     "password": "pratik@123"
 }
+
+### 
+
+POST http://localhost:3000/api/v1/tasks/create
+Content-Type: application/json
+
+{
+    "email": "chavanpratik.pc@gmail.com",
+    "name": "Resolve a bug task",
+    "body": "Task body"
+}
+
+### 
+GET http://localhost:3000/api/v1/tasks/show

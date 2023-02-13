@@ -37,6 +37,7 @@ module.exports = {
     let redirectPath = res.locals.redirect;
     let error = res.locals.failureMessage;
 
+    console.log(redirectPath);
     if (redirectPath) {
       error ? res.status(Status.BAD_REQUEST) : res.status(Status.OK);
       res.redirect(redirectPath);

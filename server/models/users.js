@@ -22,6 +22,7 @@ const userSchema = mongoose.Schema({
   //   type: String,
   //   required: true,
   // },
+  tasks: [{ type: mongoose.Schema.Types.ObjectId, ref: "Task" }],
 });
 
 userSchema.plugin(passportLocalMongoose, {
