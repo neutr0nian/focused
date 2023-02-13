@@ -1,6 +1,12 @@
 const router = require("express").Router();
 const usersController = require("../controllers/usersController");
 
-router.get("/signup", usersController.signup);
+/* user login and signup */
+router.post(
+  "/login",
+  usersController.authenticate,
+  usersController.redirectView
+);
+router.post("/signup", usersController.create);
 
 module.exports = router;

@@ -1,5 +1,25 @@
-GET http://localhost:3000/
+GET http://localhost:3000/api/v1/
 
 ### 
 
-GET http://localhost:3000/signup
+POST http://localhost:3000/api/v1/users/signup
+Content-Type: application/json
+
+{
+    "name":{
+        "first": "Pratik",
+        "last": "Chavan"
+    },
+    "email": "chavanpratik.pc@gmail.com",
+    "password": "pratik@123"
+}
+
+###
+
+POST http://localhost:3000/api/v1/users/login
+Content-Type: application/json
+
+{
+    "email": "chavanpratik.pc@gmail.com",
+    "password": "pratik@123"
+}
