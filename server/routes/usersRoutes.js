@@ -8,5 +8,7 @@ router.post(
   usersController.redirectView
 );
 router.post("/signup", usersController.create, usersController.sendOTP);
-router.get("/sendOTP", usersController.sendOTP);
+router.post("/sendOtp", usersController.sendOTP);
+router.post("/verifyEmail", usersController.verifyEmail);
+
 module.exports = router;

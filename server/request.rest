@@ -15,7 +15,25 @@ Content-Type: application/json
 }
 
 ###
+POST http://localhost:3000/api/v1/users/sendOtp
+Content-Type: application/json
 
+{
+    "user":{"email": "pchavan4@buffalo.edu"},
+    "resend": "true"
+}
+
+
+###
+POST http://localhost:3000/api/v1/users/verifyEmail
+Content-Type: application/json
+
+{
+    "email": "pchavan4@buffalo.edu",
+    "otp": "CrAUJJ"
+}
+
+###
 POST http://localhost:3000/api/v1/users/login
 Content-Type: application/json
 

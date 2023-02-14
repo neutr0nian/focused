@@ -22,27 +22,40 @@ module.exports = {
     User.register(user, req.body.password)
       .then((user) => {
         console.log("User created successfully", user.ObjectId);
-        // res.status(Status.OK);
         req.user = user;
         next();
       })
       .catch((error) => {
-        console.log(`Error saving user: ${error.message}`);
+        console.log(`Error occured while saving user: ${error.message}`);
         res.status(Status.INTERNAL_SERVER_ERROR);
         res.send("Error creating the user");
       });
   },
   sendOTP: (req, res, next) => {
-    const user = req.user;
+    const user = req.user || req.body.user;
     const templatePath = path.join(
       __dirname,
       "..",
       "/utils/templates/welcome.ejs"
     );
-    console.log(templatePath);
+    let otp = user?.otp;
+    if (req.body.resend) {
+      otp = generateOtp();
+      User.findOneAndUpdate({ email: user.email }, { otp: otp })
+        .then((user) => {
+          console.log("User OTP updated successfully");
+        })
+        .catch((error) => {
+          console.log(`Error occured while updating the OTP: ${error.message}`);
+          res.status(Status.INTERNAL_SERVER_ERROR);
+          res.send({
+            message: "Internal server error",
+          });
+        });
+    }
     ejs.renderFile(
       templatePath,
-      { otp: user.otp, receiver: user.email },
+      { otp: otp, receiver: user.email },
       (err, data) => {
         if (err) {
           console.log("Error while generating template", err);
@@ -52,7 +65,7 @@ module.exports = {
           .then((data) => {
             res.status(Status.OK);
             res.send({
-              message: "User created and OTP sent to the user email",
+              message: "OTP is sent to your egistered email address",
             });
           })
           .catch((error) => {
@@ -67,6 +80,28 @@ module.exports = {
       }
     );
   },
+  verifyEmail: (req, res) => {
+    const { email, otp } = req.body;
+
+    User.findOne({ email })
+      .then((user) => {
+        if (user.otp == otp) {
+          user.active = true;
+          res.status(Status.OK);
+          res.send({
+            message: "Your email is verified",
+          });
+        } else {
+          res.status(Status.FORBIDDEN);
+          res.send({
+            message: "Please enter correct OTP",
+          });
+        }
+      })
+      .catch((error) => {
+        console.error(`Error occured while fetching user: ${error.message}`);
+      });
+  },
   authenticate: passport.authenticate("local", {
     failureRedirect: "/users/login",
     failureMessage: "Failed to login",
@@ -77,7 +112,6 @@ module.exports = {
     let redirectPath = res.locals.redirect;
     let error = res.locals.failureMessage;
 
-    console.log(redirectPath);
     if (redirectPath) {
       error ? res.status(Status.BAD_REQUEST) : res.status(Status.OK);
       res.redirect(redirectPath);

@@ -22,6 +22,9 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  active: {
+    type: Boolean,
+  },
   created: {
     type: String,
     default: new Date().toISOString(),
