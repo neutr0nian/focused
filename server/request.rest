@@ -10,7 +10,7 @@ Content-Type: application/json
         "first": "Pratik",
         "last": "Chavan"
     },
-    "email": "chavanpratik.pc@gmail.com",
+    "email": "pchavan4@buffalo.edu",
     "password": "pratik@123"
 }
 

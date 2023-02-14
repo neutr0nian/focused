@@ -18,6 +18,14 @@ const userSchema = mongoose.Schema({
     lowercase: true,
     unique: true,
   },
+  otp: {
+    type: String,
+    required: true,
+  },
+  created: {
+    type: String,
+    default: new Date().toISOString(),
+  },
   tasks: [{ type: mongoose.Schema.Types.ObjectId, ref: "Task" }],
   projects: [{ type: mongoose.Schema.Types.ObjectId, ref: "Project" }],
 });
