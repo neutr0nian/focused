@@ -9,9 +9,10 @@ const projectSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  startedAt: {
+  created: {
     type: Date,
     required: true,
+    default: new Date().toISOString(),
   },
   totalTasks: {
     type: Number,
