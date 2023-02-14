@@ -5,7 +5,8 @@ const usersController = require("../controllers/usersController");
 router.post(
   "/login",
   usersController.authenticate,
-  usersController.redirectView
+  usersController.setAccessToken
+  // usersController.redirectView
 );
 router.post("/signup", usersController.create, usersController.sendOTP);
 router.post("/sendOtp", usersController.sendOTP);

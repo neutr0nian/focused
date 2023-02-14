@@ -38,7 +38,7 @@ POST http://localhost:3000/api/v1/users/login
 Content-Type: application/json
 
 {
-    "email": "chavanpratik.pc@gmail.com",
+    "email": "pchavan4@buffalo.edu",
     "password": "pratik@123"
 }
 
@@ -55,3 +55,4 @@ Content-Type: application/json
 
 ### 
 GET http://localhost:3000/api/v1/tasks/show
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBjaGF2YW40QGJ1ZmZhbG8uZWR1IiwiaWF0IjoxNjc2NDEwMTg4LCJleHAiOjE2NzY0MTAyMTh9.xXZZt-Vt33uL2BWpZnL5pxL1sMYucc-o1uzHnXXVyHI

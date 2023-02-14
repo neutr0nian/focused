@@ -1,9 +1,11 @@
 const ejs = require("ejs");
 const path = require("path");
+const jwt = require("jsonwebtoken");
 const passport = require("passport");
 const User = require("../models/users");
 const { sendMail } = require("../services/emailService");
 const { generateOtp } = require("../utils/otpGenerator");
+const { generateAccessToken } = require("../services/authService");
 const Status = require("http-status-codes").StatusCodes;
 
 function getRequestBody(body) {
@@ -92,7 +94,7 @@ module.exports = {
             message: "Your email is verified",
           });
         } else {
-          res.status(Status.FORBIDDEN);
+          res.status(Status.UNAUTHORIZED);
           res.send({
             message: "Please enter correct OTP",
           });
@@ -103,11 +105,22 @@ module.exports = {
       });
   },
   authenticate: passport.authenticate("local", {
-    failureRedirect: "/users/login",
-    failureMessage: "Failed to login",
-    successRedirect: "/",
-    successMessage: "User logged in",
+    failureRedirect: "/login",
+    failureMessage: "Login authentication failed",
   }),
+  setAccessToken: (req, res, next) => {
+    const user = {
+      email: req.user.email,
+    };
+    const accessToken = generateAccessToken(user);
+    const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET);
+
+    res.status(Status.OK);
+    res.json({
+      accessToken,
+      refreshToken,
+    });
+  },
   redirectView: (req, res, next) => {
     let redirectPath = res.locals.redirect;
     let error = res.locals.failureMessage;
