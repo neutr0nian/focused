@@ -110,6 +110,7 @@ module.exports = {
   }),
   setAccessToken: (req, res, next) => {
     const user = {
+      _id: req.user._id,
       email: req.user.email,
     };
     const accessToken = generateAccessToken(user);

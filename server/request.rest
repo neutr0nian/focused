@@ -38,21 +38,34 @@ POST http://localhost:3000/api/v1/users/login
 Content-Type: application/json
 
 {
-    "email": "pchavan4@buffalo.edu",
+    "email": "chavanpratik.pc@gmail.com",
     "password": "pratik@123"
 }
 
 ### 
 
 POST http://localhost:3000/api/v1/tasks/create
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2VhODA3OTcwMTAxZDE2YWQ5ZDc5MDUiLCJlbWFpbCI6ImNoYXZhbnByYXRpay5wY0BnbWFpbC5jb20iLCJpYXQiOjE2NzY0OTAxOTEsImV4cCI6MTY3NjQ5MDQ5MX0.eTAQ6JjT8w8npnUEHppUjHW7gRcG1yI99nLQsbfuR34
 Content-Type: application/json
 
 {
     "email": "chavanpratik.pc@gmail.com",
-    "name": "Resolve a bug task",
+    "name": "Read an article today",
     "body": "Task body"
 }
 
 ### 
 GET http://localhost:3000/api/v1/tasks/show
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBjaGF2YW40QGJ1ZmZhbG8uZWR1IiwiaWF0IjoxNjc2NDEwMTg4LCJleHAiOjE2NzY0MTAyMTh9.xXZZt-Vt33uL2BWpZnL5pxL1sMYucc-o1uzHnXXVyHI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2VhODA3OTcwMTAxZDE2YWQ5ZDc5MDUiLCJlbWFpbCI6ImNoYXZhbnByYXRpay5wY0BnbWFpbC5jb20iLCJpYXQiOjE2NzY0OTA0ODUsImV4cCI6MTY3NjQ5MDc4NX0.cPI5AyaS4fDL4Lp0vFrRQXxlhSx1_z4XvibWhw0Wh_0
+
+###
+PATCH http://localhost:3000/api/v1/tasks/update
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNoYXZhbnByYXRpay5wY0BnbWFpbC5jb20iLCJpYXQiOjE2NzY0ODk5MjAsImV4cCI6MTY3NjQ5MDIyMH0.t0zkhfpKh03h1-HwZn4TQKd32-Zm-l9neIsHCCm-ZNM
+
+{
+    "task":{
+        "_id": "63ea8c2b064d2522afbeb6f5",
+        "name": "Create a new task"
+    }
+}

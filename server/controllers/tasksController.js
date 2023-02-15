@@ -1,4 +1,4 @@
-const Tasks = require("../models/tasks");
+const Task = require("../models/tasks");
 const User = require("../models/users");
 const Status = require("http-status-codes").StatusCodes;
 const { getRequestBody } = require("../utils/request.js");
@@ -6,12 +6,12 @@ const { getRequestBody } = require("../utils/request.js");
 module.exports = {
   create: (req, res, next) => {
     let newTask = getRequestBody(req.body);
-    newTask["userId"] = res.locals.user._id;
+    newTask["userId"] = req.user._id;
 
-    Tasks.create(newTask)
+    Task.create(newTask)
       .then((task) => {
         //associate the new task to the user
-        User.findByIdAndUpdate(res.locals.user._id, {
+        User.findByIdAndUpdate(req.user._id, {
           $push: { tasks: task._id },
         })
           .then((user) => console.log("Added task to user account", user))
@@ -45,7 +45,7 @@ module.exports = {
     }
 
     let user = res.locals.user;
-    Tasks.find({ _id: { $in: user.tasks } })
+    Task.find({ _id: { $in: user.tasks } })
       .then((task) => {
         console.log(`Task fetched successfully ${task}`);
         res.status(Status.OK);
@@ -56,6 +56,39 @@ module.exports = {
       .catch((error) => {
         console.error(`Error while fetching task: ${error.message}`);
         next();
+      });
+  },
+  update: (req, res) => {
+    const { _id, name, body } = req.body.task;
+
+    Task.findByIdAndUpdate({ _id: _id }, { name, body })
+      .then((task) => {
+        console.log("Task updated successfully");
+        res.status(Status.OK);
+        res.json({
+          message: "Task updated",
+        });
+      })
+      .catch((error) => {
+        console.error(
+          `Error occured while updating the task: ${error.message}`
+        );
+        res.sendStatus(Status.INTERNAL_SERVER_ERROR);
+      });
+  },
+  delete: (req, res) => {
+    const { _id } = req.body.task;
+
+    Task.findByIdAndDelete({ _id: _id })
+      .then((task) => {
+        console.log("Task deleted successfully");
+        res.status(Status.OK);
+        res.json({
+          message: "Task deleted",
+        });
+      })
+      .catch((error) => {
+        console.log(`Error occured while deleting a task: ${error.message}`);
       });
   },
 };
