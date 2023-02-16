@@ -10,10 +10,12 @@ import {
   Input,
   Stack,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import { Field, Form, Formik } from "formik";
 import { useLoginMutation } from "../../services/userAccessApi";
 import { useNavigate } from "react-router-dom";
+import { getToastObject } from "../../utils/helper";
 
 //validation
 const validate = (values) => {
@@ -30,12 +32,34 @@ const validate = (values) => {
 };
 
 const Login = ({ setShowForm }) => {
+  const toast = useToast();
   const navigate = useNavigate();
-  const [login, { isLoading, isSuccess, isFetching }] = useLoginMutation();
+  const [login, { isLoading, isSuccess, isError, isFetching }] =
+    useLoginMutation();
 
   useEffect(() => {
-    if (isSuccess) navigate("/");
-  }, [isSuccess]);
+    if (isSuccess) {
+      const toastConfig = getToastObject(
+        "Login successfull",
+        "",
+        "success",
+        5000
+      );
+      toast(toastConfig);
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
+    }
+    if (isError) {
+      const toastConfig = getToastObject(
+        "Could not verify the credentials",
+        "Please make sure you are entering correct email and password",
+        "error",
+        5000
+      );
+      toast(toastConfig);
+    }
+  }, [isSuccess, isError]);
 
   return (
     <div>
@@ -55,7 +79,6 @@ const Login = ({ setShowForm }) => {
                 login(values)
                   .unwrap()
                   .then((payload) => {
-                    console.log(payload);
                     localStorage.setItem("token", payload.accessToken);
                   })
                   .catch((error) => console.log(error));

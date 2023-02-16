@@ -10,8 +10,12 @@ import {
   Input,
   Stack,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import { Field, Form, Formik } from "formik";
+import { useNavigate } from "react-router-dom";
+import { useSignupMutation } from "../../services/userAccessApi";
+import { getToastObject } from "../../utils/helper";
 
 const validate = (values) => {
   const errors = {};
@@ -47,6 +51,32 @@ const validate = (values) => {
 };
 
 const Signup = ({ setShowForm }) => {
+  const toast = useToast();
+  const navigate = useNavigate();
+  const [signup, { isLoading, isSuccess }] = useSignupMutation();
+
+  function handleSubmit(values) {
+    console.log("signup values: ", values);
+    signup(values)
+      .unwrap()
+      .then((payload) => {
+        console.log("response: ", payload);
+        const toastConfig = getToastObject(
+          "We've created account for you",
+          "A verification code has been sent to you",
+          "success",
+          6000
+        );
+        toast(toastConfig);
+        setTimeout(() => {
+          navigate(`/verify-email/${values.email}`);
+        }, 3000);
+      })
+      .catch((error) => {
+        console.error("Signup failed: ", error.message);
+      });
+  }
+
   return (
     <div>
       <Container mt={10}>
@@ -65,7 +95,7 @@ const Signup = ({ setShowForm }) => {
               }}
               validate={validate}
               onSubmit={(values, actions) => {
-                alert(JSON.stringify(values, null, 2));
+                handleSubmit(values);
               }}
             >
               {(props) => (
