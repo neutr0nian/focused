@@ -134,9 +134,12 @@ const Signup = ({ setShowForm }) => {
                     {({ field, form }) => (
                       <FormControl
                         isRequired
-                        isInvalid={form.errors.confirmPassword}
+                        isInvalid={
+                          form.errors.confirmPassword &&
+                          form.touched.confirmPassword
+                        }
                       >
-                        <FormLabel>Password</FormLabel>
+                        <FormLabel>Confirm password</FormLabel>
                         <Input {...field} type="password" />
                         <FormErrorMessage>
                           {form.errors.confirmPassword}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Box,
   Button,
@@ -12,7 +12,10 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Field, Form, Formik } from "formik";
+import { useLoginMutation } from "../../services/userAccessApi";
+import { useNavigate } from "react-router-dom";
 
+//validation
 const validate = (values) => {
   const errors = {};
   if (!values.email) {
@@ -27,6 +30,13 @@ const validate = (values) => {
 };
 
 const Login = ({ setShowForm }) => {
+  const navigate = useNavigate();
+  const [login, { isLoading, isSuccess, isFetching }] = useLoginMutation();
+
+  useEffect(() => {
+    if (isSuccess) navigate("/");
+  }, [isSuccess]);
+
   return (
     <div>
       <Container mt={10}>
@@ -42,8 +52,13 @@ const Login = ({ setShowForm }) => {
               }}
               validate={validate}
               onSubmit={(values, actions) => {
-                console.log("loggin");
-                alert(JSON.stringify(values, null, 2));
+                login(values)
+                  .unwrap()
+                  .then((payload) => {
+                    console.log(payload);
+                    localStorage.setItem("token", payload.accessToken);
+                  })
+                  .catch((error) => console.log(error));
               }}
             >
               {(props) => (
@@ -80,7 +95,7 @@ const Login = ({ setShowForm }) => {
                     mt={3}
                     w="full"
                     colorScheme="teal"
-                    isLoading={props.isSubmitting}
+                    isLoading={isLoading}
                     type="submit"
                   >
                     Login
