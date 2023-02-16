@@ -24,16 +24,29 @@ export const userAccessApi = createApi({
         },
       }),
     }),
-    signup: ({ name, email, password }) => ({
-      url: "/signup",
-      method: "POST",
-      body: {
-        name,
-        email,
-        password,
-      },
+    signup: builder.mutation({
+      query: ({ name, email, password }) => ({
+        url: "/signup",
+        method: "POST",
+        body: {
+          name,
+          email,
+          password,
+        },
+      }),
+    }),
+    verify: builder.mutation({
+      query: ({ email, otp }) => ({
+        url: "/verifyEmail",
+        method: "POST",
+        body: {
+          email,
+          otp,
+        },
+      }),
     }),
   }),
 });
 
-export const { useLoginMutation } = userAccessApi;
+export const { useLoginMutation, useSignupMutation, useVerifyMutation } =
+  userAccessApi;
