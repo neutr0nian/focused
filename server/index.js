@@ -2,6 +2,7 @@ require("dotenv").config();
 
 const PORT = 3000;
 const express = require("express");
+const cors = require("cors");
 const router = require("./routes/index");
 const passport = require("passport");
 const expressSession = require("express-session");
@@ -30,7 +31,7 @@ app.use(
     extended: false,
   })
 );
-
+app.use(cors());
 app.use(express.static("public"));
 app.use(
   expressSession({
