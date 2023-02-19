@@ -5,7 +5,7 @@ const { getRequestBody } = require("../utils/request.js");
 
 module.exports = {
   create: (req, res, next) => {
-    let newTask = getRequestBody(req.body);
+    let newTask = getRequestBody(req.body.task);
     newTask["userId"] = req.user._id;
 
     Task.create(newTask)
@@ -26,7 +26,8 @@ module.exports = {
           });
         res.status(Status.OK);
         res.send({
-          message: `Task added successfully ${newTask.title}`,
+          message: `Task added successfully ${task}`,
+          data: task,
         });
       })
       .catch((error) => {
@@ -36,7 +37,7 @@ module.exports = {
       });
   },
   show: (req, res, next) => {
-    if (!res.locals?.loggedIn) {
+    if (!req.user) {
       res.status(Status.FORBIDDEN);
       res.send({
         message: "User not logged in",
@@ -44,8 +45,9 @@ module.exports = {
       return;
     }
 
-    let user = res.locals.user;
-    Task.find({ _id: { $in: user.tasks } })
+    let user = req.user;
+    console.log(user);
+    Task.find({ userId: user._id })
       .then((task) => {
         console.log(`Task fetched successfully ${task}`);
         res.status(Status.OK);

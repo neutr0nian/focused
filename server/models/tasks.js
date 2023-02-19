@@ -6,12 +6,20 @@ const taskSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
-  name: {
+  title: {
     type: String,
     required: true,
   },
   body: {
     type: String,
+  },
+  status: {
+    type: String,
+    default: "pending",
+  },
+  deleted: {
+    type: Boolean,
+    default: false,
   },
   created: {
     type: String,
