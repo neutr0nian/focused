@@ -9,14 +9,11 @@ import {
   Tooltip,
 } from "@chakra-ui/react";
 import React from "react";
+import { useDispatch } from "react-redux";
+import { editTask } from "./taskSlice";
 
-const TaskCard = ({
-  task,
-  type,
-  setEditForm,
-  handleCompletedTasks,
-  setInputs,
-}) => {
+const TaskCard = ({ task, type, setEditForm }) => {
+  const dispatch = useDispatch();
   return (
     <Box p={3} bg="gray.200" borderRadius={7} key={task.id}>
       <Flex>
@@ -24,9 +21,9 @@ const TaskCard = ({
           <Text ml={2} size="md" as="b">
             {task.title}
           </Text>
-          {task.note && (
+          {task.body && (
             <>
-              <Text p={2}>{task.note}</Text>
+              <Text p={2}>{task.body}</Text>
             </>
           )}
         </Box>
@@ -39,7 +36,7 @@ const TaskCard = ({
                   bg="white"
                   icon={<CheckIcon />}
                   onClick={() => {
-                    handleCompletedTasks(task);
+                    dispatch(editTask({ ...task, status: "completed" }));
                   }}
                 />
               </Tooltip>
@@ -48,8 +45,7 @@ const TaskCard = ({
                   bg="white"
                   icon={<EditIcon />}
                   onClick={() => {
-                    setInputs(task);
-                    setEditForm({ value: true, id: task.id });
+                    setEditForm({ task: task, value: true });
                   }}
                 />
               </Tooltip>
@@ -60,7 +56,7 @@ const TaskCard = ({
                 bg="white"
                 icon={<RepeatIcon />}
                 onClick={() => {
-                  alert("Restoring");
+                  dispatch(editTask({ ...task, status: "pending" }));
                 }}
               />
             </Tooltip>
