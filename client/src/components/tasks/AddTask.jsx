@@ -17,7 +17,7 @@ import {
 } from "../../services/tasksApi";
 import { addTask, editTask } from "./taskSlice";
 
-const AddTask = ({ editForm, task, hideForm }) => {
+const AddTask = ({ editForm, task, projectId, hideForm }) => {
   const dispatch = useDispatch();
   const token = localStorage.getItem("token");
 
@@ -27,9 +27,9 @@ const AddTask = ({ editForm, task, hideForm }) => {
 
   const title = useRef(null);
   const [inputs, setInputs] = useState({
-    id: task?.id,
-    title: task?.title,
-    body: task?.body,
+    id: task?.id || "",
+    title: task?.title || "",
+    body: task?.body || "",
   });
 
   function handleChange(e) {
@@ -41,8 +41,12 @@ const AddTask = ({ editForm, task, hideForm }) => {
   }
 
   function handleAddTask() {
+    const newTask = {
+      ...inputs,
+      projectId,
+    };
     if (token) {
-      createTask({ task: inputs, token: token })
+      createTask({ task: newTask, token: token })
         .unwrap()
         .then((payload) => {
           dispatch(addTask(payload.data));
@@ -114,7 +118,7 @@ const AddTask = ({ editForm, task, hideForm }) => {
             colorScheme="red"
             color="white"
             onClick={() => {
-              editForm.value ? editForm.handle() : hideForm(false);
+              editForm?.value ? editForm.handle() : hideForm(false);
             }}
           >
             Cancel

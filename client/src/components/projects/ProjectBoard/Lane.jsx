@@ -21,31 +21,31 @@ const Lane = ({
       borderRadius={6}
       border="0.5px solid gray"
       onDragOver={onDragOver}
-      onDrop={(e)=>onDrop(e, laneId)}
+      onDrop={(e) => onDrop(e, laneId)}
       p={2}
       w={500}
       minH={550}
     >
-      <Text as="b" ml={2}>{title}</Text>
+      <Text as="b" ml={2}>
+        {title}
+      </Text>
       <Divider marginY={2} />
       {loading || error ? (
-        <span>{error || 'Loading'}</span>
-      ):(
+        <span>{error || "Loading"}</span>
+      ) : (
         <VStack spacing={2}>
-{
-        tasks.map((task) => (
-          <Task
-            key={task.id}
-            task={task}
-            inputState={taskState}
-            setInputState={setTaskState}
-            handleEdit={handleEditTask}
-            handleUpdate={handleUpdateTask}
-            onDragStart={onDragStart}
+          {tasks.map((task) => (
+            <Task
+              key={task._id}
+              task={task}
+              inputState={taskState}
+              setInputState={setTaskState}
+              handleEdit={handleEditTask}
+              handleUpdate={handleUpdateTask}
+              onDragStart={onDragStart}
             />
-        ))
-}
-            </VStack>
+          ))}
+        </VStack>
       )}
     </Box>
   );

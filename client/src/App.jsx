@@ -5,8 +5,22 @@ import { HomePage, ProjectBoard, Projects } from "./pages";
 import { Navbar } from "./components";
 import UserAccess from "./pages/UserAccess";
 import VerifyAccount from "./pages/VerifyAccount";
+import { useDispatch } from "react-redux";
+import { useGetTasksQuery } from "./services/tasksApi";
+import { setTasks } from "./components/tasks/taskSlice";
+import { useEffect } from "react";
 
 function App() {
+  const dispatch = useDispatch();
+  const token = localStorage.getItem("token");
+  const { data, isSuccess } = useGetTasksQuery(token);
+
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(setTasks(data.data));
+    }
+  }, [isSuccess]);
+
   return (
     <div className="App">
       <Navbar />

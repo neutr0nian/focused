@@ -11,3 +11,9 @@ export function getToastObject(title, description, status, duration) {
     isClosable: true,
   };
 }
+export function getRequestHeader(token) {
+  return {
+    "Content-Type": "application/json",
+    Authorization: "Bearer " + token,
+  };
+}

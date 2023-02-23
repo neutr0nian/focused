@@ -1,20 +1,12 @@
-import {
-  Box,
-  Button,
-  Flex,
-  HStack,
-  Spacer,
-  Text,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Box, HStack } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { useEffect } from "react";
-import useDataFetching from "../hooks/useDataFetching";
 import Lane from "./Lane";
 import { AddIcon, ArrowRightIcon, CheckIcon } from "@chakra-ui/icons";
 
-import CrudModal from "../../common/modals/CrudModal";
-import ViewTask from "./ViewTask";
+import { useDispatch, useSelector } from "react-redux";
+import { getTasksByProjectName, editProject } from "../projectSlice";
+import { editTask } from "../../tasks/taskSlice";
+import { useUpdateTaskMutation } from "../../../services/tasksApi";
 
 const lanes = [
   { id: 1, title: "To Do", icon: <AddIcon /> },
@@ -27,90 +19,47 @@ const URL =
   "https://my-json-server.typicode.com/PacktPublishing/React-Projects-Second-Edition/tasks";
 
 function onDragStart(e, id) {
-  e.dataTransfer.setData("id", id);
+  e.dataTransfer.setData("_id", id);
 }
 
 function onDragOver(e) {
   e.preventDefault();
 }
-const Board = () => {
-  const [loading, error, data] = useDataFetching(URL);
-  const [tasks, setTasks] = useState([]);
+const Board = ({ tasks }) => {
+  const dispatch = useDispatch();
+  const token = localStorage.getItem("token");
+
+  const [updateTask] = useUpdateTaskMutation();
+
   const [inputs, setInputs] = useState({ id: "", title: "", body: "" });
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
-  useEffect(() => {
-    setTasks(data);
-  }, [data]);
-
   function onDrop(e, laneId) {
-    const id = e.dataTransfer.getData("id");
-    const updatedTasks = tasks.filter((task) => {
-      if (task.id.toString() === id) {
-        task.lane = laneId;
-      }
-      return task;
-    });
-    setTasks(updatedTasks);
-  }
-
-  function handleInputChange(e) {
-    setInputs({ ...inputs, [e.target.name]: e.target.value });
-  }
-
-  function handleUpdateTask(newTask) {
-    if (!newTask.hasOwnProperty("laneId")) {
-      newTask["lane"] = 1;
+    const id = e.dataTransfer.getData("_id");
+    const updatedTask = { ...tasks.filter((task) => task._id == id)[0] };
+    updatedTask.lane = laneId;
+    if (token) {
+      updateTask({ task: updatedTask, token: token })
+        .unwrap()
+        .then((payload) => {
+          dispatch(editTask(updatedTask));
+        });
+    } else {
+      alert("Please login");
     }
-    const updatedTasks = tasks.filter((task) => task.id !== newTask.id);
-    updatedTasks.push(newTask);
-    setTasks(updatedTasks);
-    setInputs({ id: "", title: "", body: "" });
   }
-
-  useEffect(() => {
-    setInputs({ id: "", title: "", body: "" });
-  }, [isOpen]);
 
   return (
     <>
-      <CrudModal
-        isOpen={isOpen}
-        onClose={onClose}
-        title={"Add Task"}
-        body={
-          <ViewTask
-            inputs={inputs}
-            onClose={onClose}
-            handleChange={handleInputChange}
-            handleSubmit={handleUpdateTask}
-          />
-        }
-      />
-      <Box h={400} margin={5}>
-        <Flex>
-          <Text as="b" fontSize="lg">
-            Project Tasks
-          </Text>
-          <Spacer />
-          <Button leftIcon={<AddIcon />} onClick={onOpen}>
-            New
-          </Button>
-        </Flex>
+      <Box h={400}>
         <HStack spacing={5} align="stretch" mt={2}>
           {lanes.map((lane) => (
             <Lane
               key={lane.id}
               laneId={lane.id}
               title={lane.title}
-              loading={loading}
-              error={error}
               taskState={inputs}
               setTaskState={setInputs}
               tasks={tasks.filter((task) => task.lane === lane.id)}
-              handleEditTask={handleInputChange}
-              handleUpdateTask={handleUpdateTask}
               onDragStart={onDragStart}
               onDragOver={onDragOver}
               onDrop={onDrop}

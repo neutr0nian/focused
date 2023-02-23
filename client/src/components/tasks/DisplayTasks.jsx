@@ -1,12 +1,11 @@
 import { CheckIcon, DeleteIcon } from "@chakra-ui/icons";
 import { Box, Divider, Flex, Heading, Spacer } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Options from "../Options";
 import CurrentTasks from "./CurrentTasks";
 import CompletedTasks from "./CompletedTasks";
-import { useGetTasksQuery } from "../../services/tasksApi";
-import { clearTasks, selectAllTasks, setTasks } from "./taskSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { clearTasks } from "./taskSlice";
+import { useDispatch } from "react-redux";
 
 const menuOptions = [
   {
@@ -15,7 +14,7 @@ const menuOptions = [
     icon: <CheckIcon />,
   },
   {
-    name: "Pending Tasks",
+    name: "Ongoing Tasks",
     isVisible: false,
     icon: <CheckIcon />,
   },
@@ -28,19 +27,15 @@ const menuOptions = [
 
 const DisplayTasks = () => {
   const dispatch = useDispatch();
-  const token = localStorage.getItem("token");
-  const { data, isSuccess } = useGetTasksQuery(token);
 
-  const [tasksType, setTasksType] = useState("pending");
-
-  const tasks = useSelector(selectAllTasks);
+  const [tasksType, setTasksType] = useState("ongoing");
 
   const handleClearTasks = () => {
     dispatch(clearTasks({ type: tasksType }));
   };
 
   const handleTasksType = () => {
-    if (tasksType == "pending") {
+    if (tasksType == "ongoing") {
       setTasksType("completed");
       menuOptions.map((option) => {
         if (option.name === "Completed Tasks") {
@@ -51,9 +46,9 @@ const DisplayTasks = () => {
         return option;
       });
     } else {
-      setTasksType("pending");
+      setTasksType("ongoing");
       menuOptions.map((option) => {
-        if (option.name === "Pending Tasks") {
+        if (option.name === "Ongoing Tasks") {
           option.isVisible = false;
         } else {
           option.isVisible = true;
@@ -65,15 +60,10 @@ const DisplayTasks = () => {
 
   const menuActions = {
     "Completed Tasks": handleTasksType,
-    "Pending Tasks": handleTasksType,
+    "Ongoing Tasks": handleTasksType,
     "Delete All": handleClearTasks,
   };
 
-  useEffect(() => {
-    if (isSuccess) {
-      dispatch(setTasks(data.data));
-    }
-  }, [isSuccess]);
   return (
     <Box mt={4}>
       <Flex alignItems="baseline" mb={2}>
@@ -84,7 +74,7 @@ const DisplayTasks = () => {
         <Options options={menuOptions} actions={menuActions} />
       </Flex>
       <Divider />
-      {tasksType === "pending" ? <CurrentTasks /> : <CompletedTasks />}
+      {tasksType === "ongoing" ? <CurrentTasks /> : <CompletedTasks />}
     </Box>
   );
 };

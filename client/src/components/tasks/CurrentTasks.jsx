@@ -17,7 +17,7 @@ import { addTask, selectTasksByStatus } from "./taskSlice";
 const CurrentTasks = () => {
   const dispatch = useDispatch();
 
-  const tasks = useSelector((state) => selectTasksByStatus(state, "pending"));
+  const tasks = useSelector((state) => selectTasksByStatus(state, "ongoing"));
 
   const [showForm, setShowForm] = useState(false);
   const [editForm, setEditForm] = useState({
