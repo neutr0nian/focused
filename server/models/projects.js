@@ -14,11 +14,13 @@ const projectSchema = mongoose.Schema({
     required: true,
     default: new Date().toISOString(),
   },
-  totalTasks: {
-    type: Number,
+  status: {
+    type: String,
+    default: "ongoing",
   },
-  pendingTasks: {
-    type: Number,
+  delete: {
+    type: Boolean,
+    default: false,
   },
   tasks: [
     {

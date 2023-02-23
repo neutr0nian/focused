@@ -70,3 +70,19 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNoYXZhb
         "name": "Create a new task"
     }
 }
+
+###
+
+GET http://localhost:3000/api/v1/projects/show
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2VlNWVkNjNhMDcyZmRhNmZhM2NmMmYiLCJlbWFpbCI6InBjaGF2YW40QGJ1ZmZhbG8uZWR1IiwiaWF0IjoxNjc3MDI5NjgzLCJleHAiOjE2NzcwMzI2ODN9.Ip8Fj-gbVasfuwEJlAd2ujyxqBH2GAqQhOGspuMcHcQ
+
+###
+POST http://localhost:3000/api/v1/projects/create
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2VlNWVkNjNhMDcyZmRhNmZhM2NmMmYiLCJlbWFpbCI6InBjaGF2YW40QGJ1ZmZhbG8uZWR1IiwiaWF0IjoxNjc3MDI5NjgzLCJleHAiOjE2NzcwMzI2ODN9.Ip8Fj-gbVasfuwEJlAd2ujyxqBH2GAqQhOGspuMcHcQ
+Content-Type: application/json
+
+{
+    "project": {
+        "name": "Slick"
+    }
+}

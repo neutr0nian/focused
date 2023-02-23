@@ -10,20 +10,6 @@ module.exports = {
 
     Task.create(newTask)
       .then((task) => {
-        //associate the new task to the user
-        User.findByIdAndUpdate(req.user._id, {
-          $push: { tasks: task._id },
-        })
-          .then((user) => console.log("Added task to user account", user))
-          .catch((error) => {
-            console.error(
-              `Error while adding task to the user account: ${error.message}`
-            );
-            res.status(Status.INTERNAL_SERVER_ERROR);
-            res.send({
-              message: "Failed: Adding task to the user account",
-            });
-          });
         res.status(Status.OK);
         res.send({
           message: `Task added successfully ${task}`,
@@ -46,7 +32,6 @@ module.exports = {
     }
 
     let user = req.user;
-    console.log(user);
     Task.find({ userId: user._id })
       .then((task) => {
         console.log(`Task fetched successfully ${task}`);
@@ -61,9 +46,9 @@ module.exports = {
       });
   },
   update: (req, res) => {
-    const { _id, name, body } = req.body.task;
+    const { _id } = req.body.task;
 
-    Task.findByIdAndUpdate({ _id: _id }, { name, body })
+    Task.findByIdAndUpdate({ _id: _id }, { ...req.body.task })
       .then((task) => {
         console.log("Task updated successfully");
         res.status(Status.OK);

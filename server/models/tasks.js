@@ -17,9 +17,17 @@ const taskSchema = mongoose.Schema({
     type: String,
     default: "pending",
   },
+  lane: {
+    type: Number,
+    default: 1,
+  },
   deleted: {
     type: Boolean,
     default: false,
+  },
+  projectId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Project",
   },
   created: {
     type: String,
