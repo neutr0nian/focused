@@ -1,10 +1,5 @@
-import {
-  AddIcon,
-  EditIcon,
-  ExternalLinkIcon,
-  HamburgerIcon,
-  RepeatIcon,
-} from "@chakra-ui/icons";
+import { HamburgerIcon } from "@chakra-ui/icons";
+
 import {
   IconButton,
   Menu,
@@ -14,16 +9,10 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 
-const Options = ({ options, id, actions }) => {
+const Options = ({ options, id, actions, icon }) => {
   return (
     <Menu>
-      <MenuButton
-        bg="gray.200"
-        as={IconButton}
-        aria-label="Options"
-        icon={<HamburgerIcon />}
-        variant="outline"
-      />
+      <MenuButton bg="white" as={IconButton} aria-label="Options" icon={icon} />
       <MenuList>
         {options.map((option) => {
           if (option.isVisible) {

@@ -6,6 +6,7 @@ import {
   Flex,
   Heading,
   HStack,
+  IconButton,
   Menu,
   MenuButton,
   MenuItem,
@@ -16,6 +17,8 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { User } from "react-feather";
+
 import Reports from "./Reports";
 
 const Navbar = () => {
@@ -29,14 +32,8 @@ const Navbar = () => {
     navigate("/");
   }
   return (
-    <div>
-      <Flex
-        minWidth="max-content"
-        alignItems="center"
-        gap="2"
-        marginX={2}
-        marginY={2}
-      >
+    <Box bg="#F1F0EA">
+      <Flex minWidth="max-content" alignItems="center" gap="2" padding={2}>
         <Box p="2">
           <Link to="/">
             <Heading size="md">Focused</Heading>
@@ -56,7 +53,13 @@ const Navbar = () => {
             </Link>
           ) : (
             <Menu>
-              <MenuButton size="sm" as={Button}>
+              <MenuButton
+                size="sm"
+                as={IconButton}
+                bg="none"
+                borderRadius="full"
+                icon={<User />}
+              >
                 Actions
               </MenuButton>
               <MenuList>
@@ -68,7 +71,7 @@ const Navbar = () => {
         </HStack>
       </Flex>
       <Divider size="xl" colorScheme="purple" />
-    </div>
+    </Box>
   );
 };
 

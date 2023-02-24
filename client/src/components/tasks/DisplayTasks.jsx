@@ -1,4 +1,4 @@
-import { CheckIcon, DeleteIcon } from "@chakra-ui/icons";
+import { CheckIcon, DeleteIcon, HamburgerIcon } from "@chakra-ui/icons";
 import { Box, Divider, Flex, Heading, Spacer } from "@chakra-ui/react";
 import React, { useState } from "react";
 import Options from "../Options";
@@ -71,7 +71,11 @@ const DisplayTasks = () => {
           {tasksType.charAt(0).toUpperCase() + tasksType.slice(1)} Tasks
         </Heading>
         <Spacer />
-        <Options options={menuOptions} actions={menuActions} />
+        <Options
+          options={menuOptions}
+          actions={menuActions}
+          icon={<HamburgerIcon />}
+        />
       </Flex>
       <Divider />
       {tasksType === "ongoing" ? <CurrentTasks /> : <CompletedTasks />}

@@ -22,28 +22,7 @@ const Projects = () => {
     if (isSuccess) dispatch(setProjects(data.data));
   }, [isSuccess]);
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
-  return (
-    <Box p={4}>
-      <Flex mb={2}>
-        <Text as="b" fontSize="lg">
-          Projects
-        </Text>
-        <Spacer />
-        <Button
-          leftIcon={<AddIcon />}
-          size="sm"
-          colorScheme="teal"
-          onClick={onOpen}
-        >
-          New
-        </Button>
-        <ProjectForm isOpen={isOpen} onClose={onClose} />
-      </Flex>
-      {isLoading ? "Loading..." : <ProjectTable />}
-    </Box>
-  );
+  return <Box p={4}>{isLoading ? "Loading..." : <ProjectTable />}</Box>;
 };
 
 export default Projects;

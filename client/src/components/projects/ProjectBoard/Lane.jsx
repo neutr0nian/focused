@@ -19,14 +19,14 @@ const Lane = ({
   return (
     <Box
       borderRadius={6}
-      border="0.5px solid gray"
       onDragOver={onDragOver}
       onDrop={(e) => onDrop(e, laneId)}
       p={2}
       w={500}
+      bg="gray.100"
       minH={550}
     >
-      <Text as="b" ml={2}>
+      <Text fontWeight={550} color={"gray.700"} ml={2}>
         {title}
       </Text>
       <Divider marginY={2} />

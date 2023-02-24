@@ -9,8 +9,8 @@ import { editTask } from "../../tasks/taskSlice";
 import { useUpdateTaskMutation } from "../../../services/tasksApi";
 
 const lanes = [
-  { id: 1, title: "To Do", icon: <AddIcon /> },
-  { id: 2, title: "In Progress", icon: <ArrowRightIcon /> },
+  { id: 1, title: "To do", icon: <AddIcon /> },
+  { id: 2, title: "In progress", icon: <ArrowRightIcon /> },
   { id: 3, title: "Review", icon: <ArrowRightIcon /> },
   { id: 4, title: "Done", icon: <CheckIcon /> },
 ];
@@ -50,7 +50,7 @@ const Board = ({ tasks }) => {
 
   return (
     <>
-      <Box h={400}>
+      <Box px={3} pb={3}>
         <HStack spacing={5} align="stretch" mt={2}>
           {lanes.map((lane) => (
             <Lane

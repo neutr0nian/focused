@@ -41,7 +41,9 @@ const Task = ({ task, setInputState, handleUpdate, onDragStart }) => {
         }
       />
       <Box
-        bg="gray.100"
+        bg="white"
+        border="1px solid gray"
+        borderWidth="0.4px"
         p={3}
         w="full"
         draggable
@@ -59,7 +61,7 @@ const Task = ({ task, setInputState, handleUpdate, onDragStart }) => {
           <CloseIcon fontSize="xs" onClick={() => handleDeleteTask()} />
         </Flex>
         <Text
-          fontSize="md"
+          fontSize="sm"
           onClick={() => {
             setInputState(task);
             onOpen();

@@ -8,14 +8,20 @@ import {
   Td,
   TableContainer,
   useDisclosure,
+  Container,
+  Flex,
+  Text,
+  Spacer,
+  Button,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useState } from "react";
 import { selectAllProjects, deleteProject } from "./projectSlice";
-import { CheckIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import { AddIcon, CheckIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import ProjectForm from "./ProjectForm";
 import Options from "../Options";
+import { MoreVertical } from "react-feather";
 
 const menuOptions = [
   {
@@ -49,7 +55,6 @@ const ProjectTable = () => {
   }
 
   function handleDeleteProject(id) {
-    console.log("updating project");
     dispatch(deleteProject({ _id: id }));
   }
 
@@ -64,12 +69,27 @@ const ProjectTable = () => {
   };
 
   return (
-    <>
-      <ProjectForm
-        project={projectToUpdate}
-        isOpen={isOpen}
-        onClose={onClose}
-      />
+    <Container maxW={1450}>
+      <Flex mb={2}>
+        <Text as="b" fontSize="lg">
+          Projects
+        </Text>
+        <Spacer />
+        <Button
+          leftIcon={<AddIcon />}
+          size="sm"
+          colorScheme="teal"
+          variant="outline"
+          onClick={onOpen}
+        >
+          New
+        </Button>
+        <ProjectForm
+          project={projectToUpdate}
+          isOpen={isOpen}
+          onClose={onClose}
+        />
+      </Flex>
       {projects && projects.length ? (
         <TableContainer border="0.4px solid gray" borderRadius={6}>
           <Table variant="simple">
@@ -89,10 +109,13 @@ const ProjectTable = () => {
                     onClick={() =>
                       navigate(`/projects/board?project=${project.name}`, {
                         state: {
-                          id: project._id,
+                          project: project,
                         },
                       })
                     }
+                    _hover={{
+                      color: "gray.500",
+                    }}
                   >
                     {project.name}
                   </Td>
@@ -104,6 +127,7 @@ const ProjectTable = () => {
                       options={menuOptions}
                       id={project._id}
                       actions={menuActions}
+                      icon={<MoreVertical />}
                     />
                   </Td>
                 </Tr>
@@ -115,6 +139,7 @@ const ProjectTable = () => {
                 <Th>Started at</Th>
                 <Th>Total Tasks</Th>
                 <Th> Pending Tasks</Th>
+                <Th> Actions</Th>
               </Tr>
             </Tfoot>
           </Table>
@@ -122,7 +147,7 @@ const ProjectTable = () => {
       ) : (
         "Loading..."
       )}
-    </>
+    </Container>
   );
 };
 

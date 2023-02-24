@@ -6,6 +6,8 @@ import {
   Flex,
   HStack,
   IconButton,
+  ScaleFade,
+  SlideFade,
   Text,
   Tooltip,
   VStack,
@@ -19,6 +21,11 @@ import DisplayTasks from "./tasks/DisplayTasks";
 const minsFocused = [];
 let startTime = 0;
 
+const timerBoxBg = {
+  work: "purple.400",
+  short: "blue.400",
+  long: "green.400",
+};
 const Timer = () => {
   const [timer, setTimer] = useState(1500);
   const [timerType, setTimerType] = useState("work");
@@ -72,12 +79,15 @@ const Timer = () => {
 
   return (
     <>
-      <Box bg="gray.100" borderRadius="6px" pt={5} pb={5} mt={10}>
+      <Text textAlign="center" fontSize="2xl" fontWeight="800">
+        Let's get Focused
+      </Text>
+      <Box bg={timerBoxBg[timerType]} borderRadius="6px" pt={5} pb={5} mt={5}>
         <Center>
           <Flex>
             <ButtonGroup>
               <Button
-                colorScheme={timerType === "work" ? "orange" : "gray"}
+                colorScheme={timerType === "work" ? "purple" : "gray"}
                 onClick={() => handleClick("work")}
               >
                 Focus
@@ -101,27 +111,30 @@ const Timer = () => {
           <HStack alignItems="center">
             <Tooltip hasArrow label="Reduce time">
               <IconButton
+                bg="none"
                 isDisabled={timer <= 1}
-                icon={<MinusIcon />}
+                _hover={{
+                  bg: "none",
+                }}
+                icon={<MinusIcon color="white" />}
                 onClick={() => setTimer(timer - 60)}
               />
             </Tooltip>
-            <Text fontSize="8xl" as="b" color="gray.700">
+            <Text fontSize="8xl" as="b" color="white">
               {dispSecondsAsMins(timer)}
             </Text>
             <Tooltip hasArrow label="Add time">
               <IconButton
-                icon={<AddIcon />}
+                bg="none"
+                _hover={{
+                  bg: "none",
+                }}
+                icon={<AddIcon color="white" />}
                 onClick={() => setTimer(timer + 60)}
               />
             </Tooltip>
           </HStack>
-          <Button
-            size="lg"
-            bg="gray.300"
-            onClick={() => setStart(!start)}
-            borderBottom="4px solid orange"
-          >
+          <Button size="lg" bg="white" onClick={() => setStart(!start)}>
             {start ? "STOP" : "START"}
           </Button>
         </VStack>
