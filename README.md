@@ -16,7 +16,8 @@ Note: The play music feature is not working due to premium access for spotify.
 4. Load Playlists
 5. Load Tracks and Play Music
 6. Generate Reports
-7. Project Board
+7. Manage Projects
+8. Project Board
 
 ![Home](screenshots/home_1.1.0.png)
 ![Music](screenshots/music.png)
@@ -26,7 +27,7 @@ Note: The play music feature is not working due to premium access for spotify.
 ## Upcoming features
 
 1. Theming
-2. Projects
+2. Add users to Projects
 3. Sound Alerts
 
 ## Technologies used
