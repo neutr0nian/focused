@@ -1,22 +1,24 @@
-import React from 'react'
+import React from "react";
 
-const Bars = ({data, height, scaleX, scaleY}) => {
+const Bars = ({ labels, data, height, scaleX, scaleY }) => {
   return (
     <>
-    {
-        data.map(({value, label}) => (
-            <rect
-                key = {`bar-${label}`}
-                x = {scaleX(label)}
-                y = {scaleY(value)}
-                width = {scaleX.bandwidth()}
-                height = {height-scaleY(value)}
-                fill='teal'
-            />
-        ))
-    }
+      {labels.map((label) => {
+        return (
+          <rect
+            key={`bar-${label}`}
+            x={scaleX(label)}
+            y={scaleY(data[label])}
+            width={scaleX.bandwidth()}
+            height={height - scaleY(data[label])}
+            fill="teal"
+            rx="4px"
+            ry="4px"
+          />
+        );
+      })}
     </>
-  )
-}
+  );
+};
 
-export default Bars
+export default Bars;

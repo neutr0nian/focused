@@ -41,9 +41,11 @@ const Navbar = () => {
         </Box>
         <Spacer />
         <HStack spacing="20px">
-          <Reports isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
           <Link to="/projects">
             <Text colorScheme="teal">Projects</Text>
+          </Link>
+          <Link to="/reports">
+            <Text colorScheme="teal">Stats</Text>
           </Link>
           {!isLoggedIn ? (
             <Link to="/access">

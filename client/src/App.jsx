@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { useGetTasksQuery } from "./services/tasksApi";
 import { setTasks } from "./components/tasks/taskSlice";
 import { useEffect } from "react";
+import Reports from "./pages/Reports";
 
 function App() {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ function App() {
         <Route exact path="/" element={<HomePage />} />
         <Route exact path="/projects" element={<Projects />} />
         <Route exact path="/projects/board" element={<ProjectBoard />} />
+        <Route exact path="/reports" element={<Reports />} />
         <Route exact path="/access" element={<UserAccess />} />
         <Route exact path="/verify-email/:email" element={<VerifyAccount />} />
       </Routes>

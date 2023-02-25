@@ -6,23 +6,35 @@ const initialState = {
   tasks: [
     {
       _id: nanoid(),
+      projectId: null,
       title: "Write an article",
-      body: "Medium post at 4:00 pm",
-      status: "ongoing",
-      delete: false,
-      lane: 1,
-    },
-    {
-      _id: nanoid(),
-      title: "Write a story",
       body: "Medium post at 4:00 pm",
       status: "completed",
       delete: false,
       lane: 1,
+      completed: "2023-02-21T19:45:34.388Z",
+    },
+    {
+      _id: nanoid(),
+      projectId: null,
+      title: "Write a story",
+      body: "Medium post at 4:00 pm",
+      status: "completed",
+      delete: false,
+      completed: "2023-02-20T19:45:34.388Z",
+      lane: 1,
+    },
+    {
+      _id: nanoid(),
+      projectId: null,
+      title: "Write a story",
+      body: "Medium post at 4:00 pm",
+      status: "completed",
+      delete: false,
+      completed: "2023-02-20T19:45:34.388Z",
+      lane: 1,
     },
   ],
-  pendingTasks: [],
-  completedTasks: [],
   status: "idle",
   error: null,
 };
@@ -78,6 +90,7 @@ const tasksSlice = createSlice({
 export const { setTasks, addTask, clearTasks, editTask } = tasksSlice.actions;
 
 export const selectAllTasks = (state) => state.tasks.tasks;
+
 export const selectTasksByStatus = (state, status) =>
   state.tasks.tasks.filter(
     (task) => task.status === status && task.lane != 4 && !task.delete

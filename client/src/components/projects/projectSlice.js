@@ -9,6 +9,7 @@ const initialState = {
       created: new Date().toLocaleDateString(),
       totalTasks: 2,
       pendingTasks: 1,
+      status: "ongoing",
       deadline: new Date().toLocaleDateString(),
       userEmails: ["chavanpratik.pc@gmail"],
       tasks: [
@@ -35,6 +36,7 @@ const initialState = {
       created: new Date().toLocaleDateString(),
       totalTasks: 1,
       pendingTasks: 1,
+      status: "ongoing",
       deadline: new Date().toLocaleDateString(),
       userEmails: ["chavanpratik.pc@gmail"],
       tasks: [
@@ -54,6 +56,7 @@ const initialState = {
       created: new Date().toLocaleDateString(),
       totalTasks: 1,
       pendingTasks: 1,
+      status: "completed",
       deadline: new Date().toLocaleDateString(),
       userEmails: ["pchavan4@gmail"],
       tasks: [
