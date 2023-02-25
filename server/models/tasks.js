@@ -37,6 +37,9 @@ const taskSchema = mongoose.Schema({
     type: Date,
     default: new Date().toISOString(),
   },
+  completed: {
+    type: Date,
+  },
 });
 
 module.exports = mongoose.model("Task", taskSchema);
