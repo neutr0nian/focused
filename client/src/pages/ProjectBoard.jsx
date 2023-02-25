@@ -62,7 +62,7 @@ const ProjectBoard = () => {
             variant="outline"
             onClick={onOpen}
           >
-            New
+            Task
           </Button>
         </Flex>
         <Board tasks={tasks} />

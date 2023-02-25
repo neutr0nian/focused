@@ -10,6 +10,7 @@ const initialState = {
       totalTasks: 2,
       pendingTasks: 1,
       deadline: new Date().toLocaleDateString(),
+      userEmails: ["chavanpratik.pc@gmail"],
       tasks: [
         {
           _id: nanoid(),
@@ -35,6 +36,7 @@ const initialState = {
       totalTasks: 1,
       pendingTasks: 1,
       deadline: new Date().toLocaleDateString(),
+      userEmails: ["chavanpratik.pc@gmail"],
       tasks: [
         {
           _id: nanoid(),
@@ -53,6 +55,7 @@ const initialState = {
       totalTasks: 1,
       pendingTasks: 1,
       deadline: new Date().toLocaleDateString(),
+      userEmails: ["pchavan4@gmail"],
       tasks: [
         {
           _id: nanoid(),
@@ -131,4 +134,5 @@ export const getTasksByProjectName = (state, name) => {
 
 export const { setProjects, addProject, editProject, deleteProject } =
   projectsSlice.actions;
+
 export default projectsSlice.reducer;

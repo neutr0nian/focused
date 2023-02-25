@@ -58,6 +58,10 @@ const ProjectTable = () => {
     dispatch(deleteProject({ _id: id }));
   }
 
+  function handleNewProject() {
+    setProjectToUpdate(null);
+    onOpen();
+  }
   function getProjectById(id) {
     return projects.filter((project) => project._id === id)[0];
   }
@@ -80,9 +84,9 @@ const ProjectTable = () => {
           size="sm"
           colorScheme="teal"
           variant="outline"
-          onClick={onOpen}
+          onClick={handleNewProject}
         >
-          New
+          Project
         </Button>
         <ProjectForm
           project={projectToUpdate}
@@ -114,7 +118,7 @@ const ProjectTable = () => {
                       })
                     }
                     _hover={{
-                      color: "gray.500",
+                      color: "teal.500",
                     }}
                   >
                     {project.name}
