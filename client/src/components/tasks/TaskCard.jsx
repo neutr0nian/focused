@@ -101,7 +101,7 @@ const TaskCard = ({ task, type, setEditForm }) => {
                 bg="white"
                 icon={<RepeatIcon />}
                 onClick={() => {
-                  dispatch(editTask({ ...task, status: "pending" }));
+                  dispatch(editTask({ ...task, status: "ongoing" }));
                 }}
               />
             </Tooltip>
