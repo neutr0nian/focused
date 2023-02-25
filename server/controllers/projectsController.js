@@ -1,4 +1,7 @@
+const ejs = require("ejs");
+const path = require("path");
 const Project = require("../models/projects");
+const { sendMail } = require("../services/emailService");
 const { getRequestBody } = require("../utils/request");
 const Status = require("http-status-codes").StatusCodes;
 
@@ -47,8 +50,9 @@ module.exports = {
       });
   },
   show: (req, res) => {
-    const { _id } = req.user;
-    Project.find({ userId: _id })
+    const { email } = req.user;
+    console.log(email);
+    Project.find({ userEmails: email })
       .then((project) => {
         console.log("Projects fetched successfully", project);
         res.status(Status.OK);
@@ -66,5 +70,35 @@ module.exports = {
           message: "Could not get your projects, please try again",
         });
       });
+  },
+  addUsers: (req, res, next) => {
+    const user = req.user;
+    const { project } = req.body;
+    const { userEmails } = project;
+    const templatePath = path.join(
+      __dirname,
+      "..",
+      "/utils/templates/invite.ejs"
+    );
+
+    userEmails.forEach((email) => {
+      ejs.renderFile(
+        templatePath,
+        { projectName: project.name, inviter: user.email, receiver: email },
+        (err, data) => {
+          if (err) {
+            console.log("Error while generating template: ", err);
+            return;
+          }
+          sendMail(email, "You are invited!", data)
+            .then(() => {
+              next();
+            })
+            .catch((err) => {
+              next(err);
+            });
+        }
+      );
+    });
   },
 };

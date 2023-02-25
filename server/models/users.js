@@ -33,6 +33,10 @@ const userSchema = mongoose.Schema({
   projects: [{ type: mongoose.Schema.Types.ObjectId, ref: "Project" }],
 });
 
+userSchema.virtual("fullName").get(function () {
+  return `${this.name.first} ${this.name.last}`;
+});
+
 userSchema.plugin(passportLocalMongoose, {
   usernameField: "email",
 });

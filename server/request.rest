@@ -74,15 +74,16 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNoYXZhb
 ###
 
 GET http://localhost:3000/api/v1/projects/show
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2VlNWVkNjNhMDcyZmRhNmZhM2NmMmYiLCJlbWFpbCI6InBjaGF2YW40QGJ1ZmZhbG8uZWR1IiwiaWF0IjoxNjc3MDI5NjgzLCJleHAiOjE2NzcwMzI2ODN9.Ip8Fj-gbVasfuwEJlAd2ujyxqBH2GAqQhOGspuMcHcQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2VlNWVkNjNhMDcyZmRhNmZhM2NmMmYiLCJlbWFpbCI6InBjaGF2YW40QGJ1ZmZhbG8uZWR1IiwiaWF0IjoxNjc3MjcwNzQ3LCJleHAiOjE2NzcyNzM3NDd9.HbA0TKsNpxvF2gfkDRMFkZWyxnAYwpLHcFy7CCyz-jo
 
 ###
 POST http://localhost:3000/api/v1/projects/create
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2VlNWVkNjNhMDcyZmRhNmZhM2NmMmYiLCJlbWFpbCI6InBjaGF2YW40QGJ1ZmZhbG8uZWR1IiwiaWF0IjoxNjc3MDI5NjgzLCJleHAiOjE2NzcwMzI2ODN9.Ip8Fj-gbVasfuwEJlAd2ujyxqBH2GAqQhOGspuMcHcQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2VlNWVkNjNhMDcyZmRhNmZhM2NmMmYiLCJlbWFpbCI6InBjaGF2YW40QGJ1ZmZhbG8uZWR1IiwiaWF0IjoxNjc3MjcwNzQ3LCJleHAiOjE2NzcyNzM3NDd9.HbA0TKsNpxvF2gfkDRMFkZWyxnAYwpLHcFy7CCyz-jo
 Content-Type: application/json
 
 {
     "project": {
-        "name": "Slick"
+        "name": "Slick",
+        "userEmails": ["chavanpratik.pc@gmail.com"]
     }
 }

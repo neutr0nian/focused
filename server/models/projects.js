@@ -5,14 +5,24 @@ const projectSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
+  userEmails: [
+    {
+      type: String,
+    },
+  ],
   name: {
     type: String,
     required: true,
+    unique: true,
   },
   created: {
     type: Date,
     required: true,
     default: new Date().toISOString(),
+  },
+  deadline: {
+    type: Date,
+    required: true,
   },
   status: {
     type: String,
