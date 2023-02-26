@@ -100,7 +100,7 @@ const ProjectTable = () => {
             <Thead>
               <Tr>
                 <Th>Project</Th>
-                <Th>Started at</Th>
+                <Th>Deadline</Th>
                 <Th>Total Tasks</Th>
                 <Th> Pending Tasks</Th>
                 <Th> Actions</Th>
@@ -108,8 +108,9 @@ const ProjectTable = () => {
             </Thead>
             <Tbody>
               {projects.map((project) => (
-                <Tr cursor="pointer" key={project._id}>
+                <Tr key={project._id}>
                   <Td
+                    cursor="pointer"
                     onClick={() =>
                       navigate(`/projects/board?project=${project.name}`, {
                         state: {
@@ -140,7 +141,7 @@ const ProjectTable = () => {
             <Tfoot>
               <Tr>
                 <Th>Project</Th>
-                <Th>Started at</Th>
+                <Th>Deadline</Th>
                 <Th>Total Tasks</Th>
                 <Th> Pending Tasks</Th>
                 <Th> Actions</Th>
