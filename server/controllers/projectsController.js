@@ -9,6 +9,7 @@ module.exports = {
   create: (req, res) => {
     let newProject = getRequestBody(req.body.project);
     newProject["userId"] = req.user._id;
+    newProject["userEmails"] = [req.user.email];
 
     Project.create(newProject)
       .then((project) => {
@@ -81,6 +82,7 @@ module.exports = {
       "/utils/templates/invite.ejs"
     );
 
+    if (!userEmails.length) next();
     userEmails.forEach((email) => {
       ejs.renderFile(
         templatePath,

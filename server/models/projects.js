@@ -15,6 +15,9 @@ const projectSchema = mongoose.Schema({
     required: true,
     unique: true,
   },
+  description: {
+    type: String,
+  },
   created: {
     type: Date,
     required: true,
