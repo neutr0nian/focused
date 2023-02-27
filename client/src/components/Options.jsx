@@ -9,10 +9,16 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 
-const Options = ({ options, id, actions, icon }) => {
+const Options = ({ options, menuButton, id, actions, icon }) => {
   return (
     <Menu>
-      <MenuButton bg="white" as={IconButton} aria-label="Options" icon={icon} />
+      <MenuButton
+        hidden={menuButton}
+        bg="white"
+        as={IconButton}
+        aria-label="Options"
+        icon={icon}
+      />
       <MenuList>
         {options.map((option) => {
           if (option.isVisible) {

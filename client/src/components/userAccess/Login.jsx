@@ -64,28 +64,28 @@ const Login = ({ setShowForm }) => {
   return (
     <div>
       <Container mt={10}>
-        <Text marginY={3} fontWeight={700} fontSize="xl">
+        <Text marginY={3} fontWeight={700} fontSize="2xl">
           Login to your account
         </Text>
         <Box borderRadius="lg" borderWidth="1px" p={6}>
-          <Stack>
-            <Formik
-              initialValues={{
-                email: "",
-                password: "",
-              }}
-              validate={validate}
-              onSubmit={(values, actions) => {
-                login(values)
-                  .unwrap()
-                  .then((payload) => {
-                    localStorage.setItem("token", payload.accessToken);
-                  })
-                  .catch((error) => console.log(error));
-              }}
-            >
-              {(props) => (
-                <Form>
+          <Formik
+            initialValues={{
+              email: "",
+              password: "",
+            }}
+            validate={validate}
+            onSubmit={(values, actions) => {
+              login(values)
+                .unwrap()
+                .then((payload) => {
+                  localStorage.setItem("token", payload.accessToken);
+                })
+                .catch((error) => console.log(error));
+            }}
+          >
+            {(props) => (
+              <Form>
+                <Stack gap={1}>
                   <Field name="email">
                     {({ field, form }) => (
                       <FormControl
@@ -123,10 +123,10 @@ const Login = ({ setShowForm }) => {
                   >
                     Login
                   </Button>
-                </Form>
-              )}
-            </Formik>
-          </Stack>
+                </Stack>
+              </Form>
+            )}
+          </Formik>
           <HStack mt={2} fontSize="sm">
             <Text>Create an account?</Text>
             <Text as="b" cursor="pointer" onClick={() => setShowForm("signup")}>

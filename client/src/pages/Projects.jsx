@@ -16,13 +16,23 @@ const Projects = () => {
   const dispatch = useDispatch();
   const token = localStorage.getItem("token");
 
+  console.log("here");
   const { data, isLoading, isSuccess } = useGetProjectsQuery(token);
 
   useEffect(() => {
     if (isSuccess) dispatch(setProjects(data.data));
   }, [isSuccess]);
 
-  return <Box p={4}>{isLoading ? "Loading..." : <ProjectTable />}</Box>;
+  return (
+    <Box p={4}>
+      {isLoading && "Loading..."}
+      {isSuccess ? (
+        <ProjectTable data={data.data} />
+      ) : (
+        "Please login to see your projects"
+      )}
+    </Box>
+  );
 };
 
 export default Projects;

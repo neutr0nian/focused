@@ -9,23 +9,21 @@ import {
   Button,
   Divider,
   Spacer,
-} from '@chakra-ui/react'
-import React from 'react'
+} from "@chakra-ui/react";
+import React from "react";
 
-const SimpleModal = ({title, body, isOpen, onClose, handleSubmit}) => {
+const SimpleModal = ({ title, body, isOpen, onClose, size }) => {
   return (
-     <Modal isOpen={isOpen} onClose={onClose} size='lg'>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>{title}</ModalHeader>
-          <ModalCloseButton />
-          <Divider />
-          <ModalBody>
-            {body}
-          </ModalBody>
-        </ModalContent>
-      </Modal>
-  )
-}
+    <Modal isOpen={isOpen} onClose={onClose} size={size}>
+      <ModalOverlay />
+      <ModalContent>
+        <ModalHeader>{title}</ModalHeader>
+        <ModalCloseButton />
+        <Divider />
+        <ModalBody>{body}</ModalBody>
+      </ModalContent>
+    </Modal>
+  );
+};
 
-export default SimpleModal
+export default SimpleModal;

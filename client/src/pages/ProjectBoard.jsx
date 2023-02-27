@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Container,
   Flex,
@@ -14,13 +13,16 @@ import { Board } from "../components/projects";
 import CrudModal from "../components/common/modals/CrudModal";
 import { AddIcon } from "@chakra-ui/icons";
 import AddTask from "../components/tasks/AddTask";
-import { getTasksByProjectId } from "../components/tasks/taskSlice";
+import { selectTasksByProjectId } from "../components/tasks/taskSlice";
+import { months } from "../constants/calendar";
 
 const ProjectBoard = () => {
   const location = useLocation();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const project = location.state.project;
-  const tasks = useSelector((state) => getTasksByProjectId(state, project._id));
+  const tasks = useSelector((state) =>
+    selectTasksByProjectId(state, project._id)
+  );
 
   return (
     <div>
@@ -35,11 +37,16 @@ const ProjectBoard = () => {
           {project.name}
         </Text>
         <Text fontSize="md" color="gray.500" fontWeight={500}>
-          Starts on <span>March 23</span> & Ends on <span>July 23</span>
+          Starts on{" "}
+          <span>
+            {months[new Date(project.created).getMonth()]}{" "}
+            {new Date(project.created).getDate()}
+          </span>{" "}
+          & Ends on {months[new Date(project.deadline).getMonth()]}{" "}
+          {new Date(project.deadline).getDate()}
         </Text>
         <Text mt={3} fontSize="md" color="gray.700" fontWeight={500}>
-          Computer Science and engineering department project to build a neural
-          network for automotive vehicles
+          {project?.description}
         </Text>
       </Container>
       <Container
@@ -50,7 +57,13 @@ const ProjectBoard = () => {
         p={0}
         my={3}
       >
-        <Flex bg="gray.100" px={4} py={2} borderTopRadius={7}>
+        <Flex
+          bg="gray.100"
+          px={4}
+          py={2}
+          borderTopRadius={7}
+          alignItems="center"
+        >
           <Text fontWeight={550} color={"gray.700"}>
             Project Tasks
           </Text>

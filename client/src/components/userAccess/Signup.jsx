@@ -80,26 +80,26 @@ const Signup = ({ setShowForm }) => {
   return (
     <div>
       <Container mt={10}>
-        <Text marginY={3} fontWeight={700} fontSize="xl">
+        <Text marginY={3} fontWeight={700} fontSize="2xl">
           Create your account
         </Text>
         <Box borderRadius="lg" borderWidth="1px" p={6}>
-          <Stack>
-            <Formik
-              initialValues={{
-                firstName: "",
-                lastName: "",
-                email: "",
-                password: "",
-                confirmPassword: "",
-              }}
-              validate={validate}
-              onSubmit={(values, actions) => {
-                handleSubmit(values);
-              }}
-            >
-              {(props) => (
-                <Form>
+          <Formik
+            initialValues={{
+              firstName: "",
+              lastName: "",
+              email: "",
+              password: "",
+              confirmPassword: "",
+            }}
+            validate={validate}
+            onSubmit={(values, actions) => {
+              handleSubmit(values);
+            }}
+          >
+            {(props) => (
+              <Form>
+                <Stack gap={1}>
                   <Field name="firstName">
                     {({ field, form }) => (
                       <FormControl
@@ -186,10 +186,10 @@ const Signup = ({ setShowForm }) => {
                   >
                     Create
                   </Button>
-                </Form>
-              )}
-            </Formik>
-          </Stack>
+                </Stack>
+              </Form>
+            )}
+          </Formik>
           <HStack mt={2} fontSize="sm">
             <Text>Already have an account?</Text>
             <Text as="b" cursor="pointer" onClick={() => setShowForm("login")}>

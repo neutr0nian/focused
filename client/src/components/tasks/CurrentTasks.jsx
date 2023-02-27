@@ -30,7 +30,6 @@ const CurrentTasks = () => {
   };
 
   const handleCompletedTasks = (completedTask) => {};
-
   return (
     <Box mt={4}>
       <VStack align="stretch">

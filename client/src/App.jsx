@@ -10,6 +10,7 @@ import { useGetTasksQuery } from "./services/tasksApi";
 import { setTasks } from "./components/tasks/taskSlice";
 import { useEffect } from "react";
 import Reports from "./pages/Reports";
+import Footer from "./components/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -23,8 +24,9 @@ function App() {
   }, [isSuccess]);
 
   return (
-    <div className="App">
+    <div className="App" style={{ minHeight: "100vh", paddingBottom: "5rem" }}>
       <Navbar />
+      <Footer />
       <Routes>
         <Route exact path="/" element={<HomePage />} />
         <Route exact path="/projects" element={<Projects />} />

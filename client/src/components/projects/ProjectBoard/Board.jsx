@@ -37,6 +37,9 @@ const Board = ({ tasks }) => {
     const id = e.dataTransfer.getData("_id");
     const updatedTask = { ...tasks.filter((task) => task._id == id)[0] };
     updatedTask.lane = laneId;
+    if (laneId === 4) {
+      updatedTask.status = "completed";
+    }
     if (token) {
       updateTask({ task: updatedTask, token: token })
         .unwrap()

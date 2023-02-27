@@ -11,7 +11,7 @@ const Bars = ({ labels, data, height, scaleX, scaleY }) => {
             y={scaleY(data[label])}
             width={scaleX.bandwidth()}
             height={height - scaleY(data[label])}
-            fill="teal"
+            fill="#FD941F"
             rx="4px"
             ry="4px"
           />

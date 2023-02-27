@@ -3,40 +3,7 @@ import { createSlice, nanoid } from "@reduxjs/toolkit";
 const baseUrl = import.meta.env.VITE_TEST_BASE_URL + "/tasks";
 
 const initialState = {
-  tasks: [
-    {
-      _id: nanoid(),
-      projectId: null,
-      title: "Write an article",
-      body: "Medium post at 4:00 pm",
-      status: "completed",
-      delete: false,
-      lane: 1,
-      completed: "2023-02-21T19:45:34.388Z",
-    },
-    {
-      _id: nanoid(),
-      projectId: null,
-      title: "Write a story",
-      body: "Medium post at 4:00 pm",
-      status: "completed",
-      delete: false,
-      completed: "2023-02-20T19:45:34.388Z",
-      lane: 1,
-    },
-    {
-      _id: nanoid(),
-      projectId: null,
-      title: "Write a story",
-      body: "Medium post at 4:00 pm",
-      status: "completed",
-      delete: false,
-      completed: "2023-02-20T19:45:34.388Z",
-      lane: 1,
-    },
-  ],
-  status: "idle",
-  error: null,
+  tasks: [],
 };
 
 const tasksSlice = createSlice({
@@ -52,14 +19,16 @@ const tasksSlice = createSlice({
       reducer(state, action) {
         state.tasks.push(action.payload);
       },
-      prepare({ _id, title, body }) {
+      prepare({ _id, title, body, lane, projectId }) {
         return {
           payload: {
             _id,
             title,
             body,
+            lane: lane,
             status: "ongoing",
-            delete: false,
+            deleted: false,
+            projectId: projectId,
           },
         };
       },
@@ -96,12 +65,7 @@ export const selectTasksByStatus = (state, status) =>
     (task) => task.status === status && task.lane != 4 && !task.delete
   );
 
-export const getTasksByProjectId = (state, _id) => {
-  if (state?.tasks?.tasks)
-    return state.tasks.tasks.filter(
-      (task) => task.projectId === _id && !task.delete
-    );
-  else return [];
-};
+export const selectTasksByProjectId = (state, _id) =>
+  state.tasks.tasks.filter((task) => task.projectId === _id && !task.delete);
 
 export default tasksSlice.reducer;

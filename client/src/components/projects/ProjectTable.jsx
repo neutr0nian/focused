@@ -13,12 +13,21 @@ import {
   Text,
   Spacer,
   Button,
+  Input,
+  useOutsideClick,
+  Tooltip,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import React, { useState } from "react";
-import { selectAllProjects, deleteProject } from "./projectSlice";
-import { AddIcon, CheckIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import { useDispatch } from "react-redux";
+import React, { useRef, useState } from "react";
+import { deleteProject } from "./projectSlice";
+import {
+  AddIcon,
+  CheckIcon,
+  DeleteIcon,
+  EditIcon,
+  SearchIcon,
+} from "@chakra-ui/icons";
 import ProjectForm from "./ProjectForm";
 import Options from "../Options";
 import { MoreVertical } from "react-feather";
@@ -41,13 +50,24 @@ const menuOptions = [
   },
 ];
 
-const ProjectTable = () => {
+const ProjectTable = ({ data }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const ref = useRef();
+
+  useOutsideClick({
+    ref: ref,
+    handler: () => handleClickOutside(),
+  });
+
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const projects = useSelector(selectAllProjects);
+  const [projects, setProjects] = useState(data);
 
   const [projectToUpdate, setProjectToUpdate] = useState({});
+  const [search, setSearch] = useState({
+    hidden: true,
+    val: "",
+  });
 
   function updateProject(id) {
     setProjectToUpdate(getProjectById(id));
@@ -62,8 +82,34 @@ const ProjectTable = () => {
     setProjectToUpdate(null);
     onOpen();
   }
+
   function getProjectById(id) {
     return projects.filter((project) => project._id === id)[0];
+  }
+
+  function handleSearch(e) {
+    setSearch((prev) => ({
+      ...prev,
+      val: e.target.value,
+    }));
+
+    setProjects(() =>
+      data.filter((project) => project.name.includes(e.target.value))
+    );
+  }
+
+  function handleClickOutside() {
+    setSearch({
+      hidden: true,
+      val: "",
+    });
+  }
+
+  function toggleSearch() {
+    setSearch({
+      hidden: false,
+      val: "",
+    });
   }
 
   const menuActions = {
@@ -99,7 +145,26 @@ const ProjectTable = () => {
           <Table variant="simple">
             <Thead>
               <Tr>
-                <Th>Project</Th>
+                <Th p={3} ref={ref} onClick={toggleSearch} cursor="pointer">
+                  {search.hidden ? (
+                    <>
+                      <SearchIcon mr={1} />
+                      <Tooltip label="Click to search" hasArrow>
+                        Project
+                      </Tooltip>
+                    </>
+                  ) : (
+                    <Input
+                      type="text"
+                      size="sm"
+                      w="inherit"
+                      value={search.val}
+                      placeholder="Search projects"
+                      onChange={handleSearch}
+                    />
+                  )}
+                </Th>
+
                 <Th>Deadline</Th>
                 <Th>Total Tasks</Th>
                 <Th> Pending Tasks</Th>

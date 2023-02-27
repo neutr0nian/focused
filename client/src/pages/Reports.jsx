@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 import { selectAllProjects } from "../components/projects/projectSlice";
 import Statistics from "../components/StatContainer/Statistics";
 import { selectAllTasks } from "../components/tasks/taskSlice";
+import { useGetTasksQuery } from "../services/tasksApi";
 
 const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
@@ -19,8 +20,8 @@ const Reports = () => {
   const today = new Date();
   const target = today.getDate() - 6;
 
-  console.log(target);
-  const tasks = useSelector(selectAllTasks);
+  const token = localStorage.getItem("token");
+  const { data: tasks, isLoading, isSuccess } = useGetTasksQuery(token);
   const projects = useSelector(selectAllProjects);
 
   const [tasksStats, setTasksStats] = useState({
@@ -53,15 +54,15 @@ const Reports = () => {
       Sat: 0,
     };
 
-    tasks.map((task) => {
+    tasks.data.map((task) => {
       stat.total += 1;
       if (task.status === "pending" || task.status === "ongoing")
         stat.pending += 1;
       else {
         stat.completed += 1;
-        let compDate = new Date(task.completed).getDate();
+        let compDate = new Date(task.edited).getDate();
         if (compDate >= target && compDate <= today) {
-          let day = days[new Date(task.completed).getDay()];
+          let day = days[new Date(task.edited).getDay()];
           temp[day] += 1;
         }
       }
@@ -69,6 +70,8 @@ const Reports = () => {
       if (task.projectId) stat.shared += 1;
       else stat.individual += 1;
     });
+
+    console.log(temp);
     setTasksStats({
       data: stat,
       isLoading: false,
@@ -102,9 +105,11 @@ const Reports = () => {
   }
 
   useEffect(() => {
-    loadTasksStats();
+    if (isSuccess) {
+      loadTasksStats();
+    }
     loadProjectsStats();
-  }, []);
+  }, [isSuccess]);
 
   return (
     <Container maxW="3xl">
@@ -116,30 +121,36 @@ const Reports = () => {
           Your tasks and projects statistics summary as of today
         </Text>
       </Box>
-      {tasksStats.isLoading || projectsStats.isLoading ? (
+      {isLoading ? (
         <Stack alignItems="center">
           <Spinner mt={8} />
           <Text>Reports are loading...</Text>
         </Stack>
       ) : (
         <>
-          <Statistics
-            heading="Tasks"
-            data={tasksStats.data}
-            labels={days}
-            barData={barData}
-          />
-          <Alert status="info" borderRadius={5}>
-            <AlertIcon />
-            The project chart is still in work, our team will soon release the
-            feature.
-          </Alert>
-          <Statistics
-            heading="Projects"
-            data={projectsStats.data}
-            labels={days}
-            barData={barData}
-          />
+          {isSuccess ? (
+            <>
+              <Statistics
+                heading="Tasks"
+                data={tasksStats.data}
+                labels={days}
+                barData={barData}
+              />
+              <Alert status="info" borderRadius={5}>
+                <AlertIcon />
+                The project chart is still in work, our team will soon release
+                the feature.
+              </Alert>
+              <Statistics
+                heading="Projects"
+                data={projectsStats.data}
+                labels={days}
+                barData={barData}
+              />
+            </>
+          ) : (
+            "Please login to see the reports"
+          )}
         </>
       )}
     </Container>

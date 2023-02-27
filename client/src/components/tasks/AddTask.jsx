@@ -55,6 +55,7 @@ const AddTask = ({ editForm, task, projectId, hideForm }) => {
         });
     } else {
       alert("please log in to add task");
+      dispatch(addTask(newTask));
     }
   }
 

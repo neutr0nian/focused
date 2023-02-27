@@ -1,6 +1,15 @@
-import { CloseIcon } from "@chakra-ui/icons";
-import { Box, Flex, Spacer, Text, useDisclosure } from "@chakra-ui/react";
-import React, { useState } from "react";
+import { CloseIcon, DeleteIcon } from "@chakra-ui/icons";
+import {
+  Box,
+  Flex,
+  Grid,
+  GridItem,
+  Spacer,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
+import React from "react";
+import { MoreVertical } from "react-feather";
 import { useDispatch } from "react-redux";
 import { useUpdateTaskMutation } from "../../../services/tasksApi";
 import { trimString } from "../../../utils/helper";
@@ -12,7 +21,6 @@ const Task = ({ task, setInputState, handleUpdate, onDragStart }) => {
   const dispatch = useDispatch();
   const token = localStorage.getItem("token");
   const { isOpen, onOpen, onClose } = useDisclosure();
-
   const [updateTask] = useUpdateTaskMutation();
 
   function handleDeleteTask() {
@@ -25,9 +33,11 @@ const Task = ({ task, setInputState, handleUpdate, onDragStart }) => {
         });
     }
   }
+
   return (
     <>
       <CrudModal
+        size="3xl"
         isOpen={isOpen}
         onClose={onClose}
         title={"Task Details"}
@@ -41,34 +51,60 @@ const Task = ({ task, setInputState, handleUpdate, onDragStart }) => {
         }
       />
       <Box
-        bg="white"
-        border="1px solid gray"
-        borderWidth="0.4px"
         p={3}
+        bg="white"
         w="full"
         draggable
+        shadow="sm"
+        borderColor="gray.300"
+        borderWidth="0.2px"
         cursor="pointer"
         borderRadius={6}
         onDragStart={(e) => onDragStart(e, task._id)}
       >
-        <Flex alignItems="center">
-          <Text as="b" fontSize="md">
-            {task.title.length > 30
-              ? trimString(task.title, 30) + "..."
-              : task.title}
-          </Text>
-          <Spacer />
-          <CloseIcon fontSize="xs" onClick={() => handleDeleteTask()} />
-        </Flex>
-        <Text
-          fontSize="sm"
-          onClick={() => {
-            setInputState(task);
-            onOpen();
-          }}
+        <Grid
+          templateRows="repeat(2,0.5fr)"
+          templateColumns="[first] 45% [second]45% [third]10%"
+          gap={1}
         >
-          {task.body}
-        </Text>
+          <GridItem
+            colSpan={2}
+            onClick={() => {
+              setInputState(task);
+              onOpen();
+            }}
+          >
+            <Text as="b" fontSize="md">
+              {task.title.length > 30
+                ? trimString(task.title, 30) + "..."
+                : task.title}
+            </Text>
+            <Text pb={2} fontSize="sm">
+              {task.body}
+            </Text>
+          </GridItem>
+          <GridItem justifySelf="center" rowSpan={2} colSpan={1}>
+            <MoreVertical
+              color="#404040"
+              size={20}
+              onClick={() => handleDeleteTask()}
+            />
+          </GridItem>
+          <GridItem
+            colSpan={2}
+            onClick={() => {
+              setInputState(task);
+              onOpen();
+            }}
+          >
+            <Text fontSize="xs" color="gray.600">
+              Pratik Chavan
+            </Text>
+            <Text fontSize="xs" color="gray.600">
+              2 days ago
+            </Text>
+          </GridItem>
+        </Grid>
       </Box>
     </>
   );

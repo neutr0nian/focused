@@ -92,9 +92,13 @@ const ProjectForm = ({ project, isOpen, onClose }) => {
   }
 
   function handleUpdateProject(values) {
-    const projectToUpdate = { ...project, ...values };
+    const projectToUpdate = { ...project, ...values, userEmails: emails };
     if (token) {
-      updateProject({ project: projectToUpdate, token: token })
+      updateProject({
+        project: projectToUpdate,
+
+        token: token,
+      })
         .unwrap()
         .then((payload) => {
           dispatch(editProject(projectToUpdate));
@@ -112,7 +116,11 @@ const ProjectForm = ({ project, isOpen, onClose }) => {
   }
 
   function handleNewProject(values) {
-    createProject({ project: values, token: token })
+    const newProject = {
+      ...values,
+      userEmails: emails,
+    };
+    createProject({ project: newProject, token: token })
       .unwrap()
       .then((payload) => {
         dispatch(addProject(values));
