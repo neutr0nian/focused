@@ -1,6 +1,7 @@
 require("dotenv").config();
 
 const PORT = 3000;
+const path = require("path");
 const express = require("express");
 const cors = require("cors");
 const router = require("./routes/index");
@@ -32,7 +33,8 @@ app.use(
   })
 );
 app.use(cors());
-app.use(express.static("public"));
+app.use(express.static(path.resolve(__dirname, "../client/dist")));
+
 app.use(
   expressSession({
     secret: "focused_api_password",
@@ -54,6 +56,9 @@ app.use((req, res, next) => {
 });
 
 app.use("/api/v1/", router);
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "/client/dist/index.html"));
+});
 
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
