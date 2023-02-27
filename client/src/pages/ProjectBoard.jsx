@@ -50,7 +50,10 @@ const ProjectBoard = () => {
         </Text>
       </Container>
       <Container
-        maxW="1450"
+        minW={1250}
+        width={[
+          900,1250,1450
+        ]}
         border="1px solid gray"
         borderRadius={7}
         borderWidth="0.5px"
