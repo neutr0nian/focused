@@ -32,7 +32,14 @@ app.use(
     extended: false,
   })
 );
-app.use(cors());
+app.use(
+  cors({
+    origin: true,
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true,
+    exposedHeaders: ["x-auth-token"],
+  })
+);
 app.use(express.static(path.resolve(__dirname, "../client/dist")));
 
 app.use(
