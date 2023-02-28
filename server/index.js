@@ -57,7 +57,7 @@ app.use((req, res, next) => {
 
 app.use("/api/v1/", router);
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "/client/dist/index.html"));
+  res.sendFile(path.join(__dirname, "../client/dist/index.html"));
 });
 
 passport.use(User.createStrategy());
