@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 const userAccessApiHeader = {
   "Content-Type": "application/json",
 };
-const baseUrl = "http://localhost:3000/api/v1/users";
+const baseUrl = import.meta.VITE_TEST_BASE_URL + "/users";
 
 // const createUserAccessRequest = (url) => {
 //   url,
