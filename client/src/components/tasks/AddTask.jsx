@@ -7,6 +7,7 @@ import {
   Button,
   Flex,
   ButtonGroup,
+  useToast,
 } from "@chakra-ui/react";
 import React, { useRef, useState } from "react";
 import { useEffect } from "react";
@@ -20,6 +21,7 @@ import { addTask, editTask } from "./taskSlice";
 const AddTask = ({ editForm, task, projectId, hideForm }) => {
   const dispatch = useDispatch();
   const token = localStorage.getItem("token");
+  const toast = useToast();
 
   const [createTask, { isSuccess: isCreateSuccess }] = useCreateTaskMutation();
 
@@ -55,7 +57,13 @@ const AddTask = ({ editForm, task, projectId, hideForm }) => {
         });
     } else {
       alert("please log in to add task");
-      dispatch(addTask(newTask));
+      toast({
+        title: "Login required",
+        status: "warning",
+        description: "Please login to keep your tasks stored",
+        duration: 5000,
+        isClosable: true,
+      });
     }
   }
 
