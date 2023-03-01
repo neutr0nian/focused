@@ -24,7 +24,7 @@ function App() {
   }, [isSuccess]);
 
   return (
-    <div className="App" style={{ minHeight: "100vh", paddingBottom: "5rem" }}>
+    <div className="App" style={{ minHeight: "100vh", paddingBottom: "2rem" }}>
       <Navbar />
       <Footer />
       <Routes>
