@@ -18,25 +18,29 @@ Note: The play music feature is not working due to premium access for spotify.
 6. Generate Reports
 7. Manage Projects
 8. Project Board
+9. Add users to Projects
 
-![Home](screenshots/home_1.1.0.png)
+![Home](screenshots/home_dep.png)
 ![Music](screenshots/music.png)
-![Reports](screenshots/reports.png)
-<img src="/screenshots/tasks.gif" width="900" height="400"/>
+![Board](screenshots/board_dep.png)
+![Reports](screenshots/reports_dep.png)
 
 ## Upcoming features
 
 1. Theming
-2. Add users to Projects
-3. Sound Alerts
+2. Sound Alerts
 
-## Technologies used
+## Technology Stack
 
 1. React
-2. Chakra UI
+2. React Router
 3. Redux toolkit
-4. Rapid API
+4. Chakra UI
 5. D3 JS
+6. Rapid API
+7. Express
+8. MongoDB
+9. Passport
 
 ## Steps
 
