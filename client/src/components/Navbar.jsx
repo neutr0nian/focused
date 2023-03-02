@@ -12,7 +12,6 @@ import {
   MenuList,
   Spacer,
   Text,
-  useDisclosure,
 } from "@chakra-ui/react";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -25,6 +24,7 @@ const Navbar = () => {
   console.log("is logged in:", isLoggedIn);
   function logout() {
     localStorage.removeItem("token");
+    navigate(0);
     navigate("/");
   }
 

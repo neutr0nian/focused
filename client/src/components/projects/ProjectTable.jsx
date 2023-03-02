@@ -94,7 +94,9 @@ const ProjectTable = ({ data }) => {
     }));
 
     setProjects(() =>
-      data.filter((project) => project.name.toLowerCase().includes(e.target.value))
+      data.filter((project) =>
+        project.name.toLowerCase().includes(e.target.value.toLowerCase())
+      )
     );
   }
 
@@ -119,7 +121,7 @@ const ProjectTable = ({ data }) => {
   };
 
   return (
-    <Container minW={1250} w={[900,1250,1450]}>
+    <Container minW={1250} w={[900, 1250, 1450]}>
       <Flex mb={2}>
         <Text as="b" fontSize="lg">
           Projects
