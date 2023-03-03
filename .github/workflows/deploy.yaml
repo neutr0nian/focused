@@ -12,9 +12,18 @@ jobs:
 
     steps:
       - name: authenticating  AWS
-        uses: easingthemes/ssh-deploy@main
-        with:
-          host: ${{ secrets.AWS_HOST }}
-          username: ${{ secrets.AWS_USER }}
-          key: ${{ secrets.AWS_KEY }}
-          script: sh deploy.sh
+        uses: actions/checkout@v2
+        env:
+          HOSTNAME: ${{ secrets.AWS_HOST }}
+          USER_NAME: ${{ secrets.AWS_USER }}
+          PRIVATE_KEY: ${{ secrets.AWS_KEY }}
+        run: |
+            echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME}  
+          ' #Now we have got the access of EC2 and we will start the deploy .
+            cd /home/ubuntu/CounterApp &&
+            git checkout master &&
+            git fetch --all &&
+            git reset --hard origin/master &&
+            git pull origin master &&
+            docker-compose -f docker-compose.prod.yml up -d --build'
