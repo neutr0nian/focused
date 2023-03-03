@@ -1,0 +1,14 @@
+stages:
+  - stage
+deploy:
+  stage: stage
+  script:
+    - echo "Start Deploy"
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$SSH_PRIVATE_KEY_BASE64" | base64 -d)
+    - ssh -o StrictHostKeyChecking=no -T "$TARGET_SERVER_USER@$TARGET_SERVER_HOST"
+    - echo "connection established"
+    - if [ "$CI_COMMIT_REF_NAME" == "main" ]; then pm2 deploy ecosystem.config.js stage setup 2>&1 || true; fi;
+    - if [ "$CI_COMMIT_REF_NAME" == "main" ]; then pm2 deploy ecosystem.config.js stage; fi;
+  only:
+    - main
