@@ -1,0 +1,14 @@
+{
+  "apps": [
+    {
+      "name": "focused",
+      "script": "npm",
+      "args": "run dev",
+      "watch": false,
+      "cwd": "/home/ubuntu/focused/server",
+      "merge_logs": true,
+      "instances": 1,
+      "exec_mode": "cluster"
+    }
+  ]
+}

@@ -1,14 +1,17 @@
-echo "====== preparing for build by navigating to the client directory ======="
+echo "# Kill pm2"
+sudo pm2 kill
+
+echo "# Pulling from repo"
+git pull
+
+echo "# Preparing for client build"
 cd client
 
-echo "====== build in progress ======"
+echo "# Build in progress"
 npm run build
 
-echo "====== build complete, navigating to the server directory ======="
-cd ../server
+# echo "# Build complete, navigating to the server directory"
+# cd ../server
 
-echo "====== stopping the server ======="
-pm2 stop index.js
-
-echo "====== running the server ======="
-pm2 start index.js
+echo "Running the server"
+pm2 start ecosystem.json
