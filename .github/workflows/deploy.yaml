@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: authenticating  AWS
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
         env:
           HOSTNAME: ${{ secrets.AWS_HOST }}
           USER_NAME: ${{ secrets.AWS_USER }}
