@@ -17,10 +17,10 @@ jobs:
           HOSTNAME: ${{ secrets.AWS_HOST }}
           USER_NAME: ${{ secrets.AWS_USER }}
           PRIVATE_KEY: ${{ secrets.AWS_KEY }}
-        run: |
+        run: 
             echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME}  
-          ' #Now we have got the access of EC2 and we will start the deploy .
+            ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME}  
+            ' #Now we have got the access of EC2 and we will start the deploy .
             cd /home/ubuntu/CounterApp &&
             git checkout master &&
             git fetch --all &&
