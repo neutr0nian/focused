@@ -11,15 +11,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
       - name: authenticating AWS
-        env:
-          HOSTNAME: ec2-3-141-170-51.us-east-2.compute.amazonaws.com
-          USER_NAME: ubuntu
-          PRIVATE_KEY: MIIEpQIBAAKCAQEA5/1pJPwij4Lohz2BXFVDBuBhC81gT1p3+dskT2WpjyDi3G/2+usq1fBYNvnWiFNGkJhdtxR+NeM1As4xd8V6BfbF+NbAFmfCOBkCnWypwC3BQL6mHWvxDpyDbos1e67vXW77n+n9PAO6McrKFv8BEnKmGJQMfUiki6D/Eg0dvvHClPYBnIRH5fdpYwzXTEJFuSMT9V1O0hhVu9urX9/1UFc9YKjQnrrwhe8dxnmQmxNz8NeYX/v1LAKnFvuLKf/o8di5zrZFy3T9bs/vUYNqpoEes5Ilxhh0P9NH76gXROvOCgJhVuJuNCTd/qYtBP23QYmQqYWKH8IaE+GhQgKhpwIDAQABAoIBABV4/SxxMfm6ki9CYCDdu3B9gD4Jamqt4wD7aab3r/QRhS4GJwQelD5tGp0sDtFbc+KaV8JEYVI3j4aM80M0whCfQL/BkNICFJYAqp9LmYKyOXr2qoV6ojtJ/VhUBkVGcd1iEmRA0jGl3qwRKxdpzv2YIwuPWICYIrLR2gofsKslpEdyzHLRti3dxtRLTpFrQnB1DPRS59m2ouFuLTOxXU3K9mn2sZUONjeAGg0XvxO37I86LqGRa+UfTjEtxJuGzc2AyB5jqGosI/KOl7iTJ2SQwRUsEn913z3gYcKqyrKn9bUMTKPF9vrqiMnUHb+E2egVgmb8e89o2Kg6HQ35f7ECgYEA/lNWCVpRzoTCqR/1E2DqNhhFaVD9Zd7b/SOQJtaimn0t9BhQDN2PmHuhvbeUno/2MPd6DduWguqMbVRkwrVYwL99A0KPO0lrRDYFDUUyjyYyzXETvQMsIb8Pj4Ekuz/Amojx1W9kkrH1/D1h+yMvTfFpEmSU+CV21AkU3jNXcsMCgYEA6YRtlZr7/ajzuttwGdAWpztDkW5yIlG/p63xQyC490M9XatkLbF6i+CCJa8ac3VsFYQC5W6IfzsqSkh08hjYZLO57MU4OcgnrqRNMUFJAlbbX3FfyL/ec0M/z5lIeL28Bk4VdIVjPPWALRz577lZ31sfzCdx7eYtj23b0Pr6n00CgYEA1uvn/jlkfqi0tCW8fubcpmA2cDywF2GQ+MgP7rJdcT6uEeRl6almyw5XbbLxFlpES7cnXwSdmf7KMy4phF2qJiDsbU/XKNvvmRIpjMBYbJ50Oib/7i/7IH2MkdIqD09d3XozHBJppIpdfQ8GeSuPs0d6ar+zIEzQsXkHOIucr+8CgYEAhq0GmoLRFEFtl/XY2DpH5ljqpiSBlMN6+lT6URG9O3W/HZesZiH2oFdyGBO9+JrfJCWHmhS+ikpwIHlbYQjtPF7fOuufesux/ynpDyAs4DmBubDkYh4uSGGfmrY3stMSbrx36UTIsC6SpvIQP66xY3zlgNO7BE59NjxQy10ET/0CgYEAtoI9pNpk83uKBf0FH2diBLAxQSsDQmmY0Og3hlyJLrpp0WuDwmF0lqjI8TRIlK1WaaiYRemtVZ2Hoi2wqNJwXTjaSoCnyZcLURdlEtCfMxGbDK+VbaYDQPTnGsQJNLphF+cIqM/XebX82mY9U2jBXdDv9KQyQIhincHZDl/ptMA=
-        run: |
-          echo "$PRIVATE_KEY" > PRIVATE_KEY && chmod 600 PRIVATE_KEY
-          ssh -o StrictHostKeyChecking=no -i PRIVATE_KEY ${USER_NAME}@${HOSTNAME}  
-          ' #Now we have got the access of EC2 and we will start the deploy .
-          cd /home/ubuntu/focused &&
-          git pull && cd client && npm run build && cd .. && pm2 start ecosystem.js'
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.AWS_HOST }}
+          username: ${{ secrets.AWS_USER }}
+          key: ${{ secrets.AWS_KEY }}
+          script: sh deploy.sh
