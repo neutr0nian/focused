@@ -19,4 +19,5 @@ jobs:
           key: ${{ secrets.AWS_KEY }}
           script: sh ../../deploy.sh
       - name: checking directory
-        run: pwd
+        run: |
+          echo pwd
