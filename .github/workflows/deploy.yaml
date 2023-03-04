@@ -11,13 +11,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: authenticating AWS
+      - name: executing remote ssh commands using ssh key
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.AWS_HOST }}
           username: ${{ secrets.AWS_USER }}
           key: ${{ secrets.AWS_KEY }}
-          script: sh ../../deploy.sh
-      - name: checking directory
-        run: |
-          echo pwd
+          script: |
+            cd /home/ubuntu/focused
+            sh deploy.sh

@@ -1,5 +1,5 @@
 echo "# Kill pm2"
-sudo pm2 kill
+pm2 kill
 
 echo "# Pulling from repo"
 git pull
